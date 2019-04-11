@@ -21,8 +21,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Combat Properties")]
     public GameObject projectilePrefab;
-    [SerializeField] private float projectileSpeed = 30;
-    [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private float projectileSpeed = 20;
+    [SerializeField] private float fireRate = 0.1f;
+
+    private float fireTimer;
+    private Vector3 shootDirection;
 
 
     // Start is called before the first frame update
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
         scaleVector.Set(scaleSpeed, scaleSpeed, scaleSpeed);
         size = player.transform.localScale;
+
+        fireTimer = 0;
     }
 
     // Update is called once per frame
@@ -42,6 +47,16 @@ public class PlayerController : MonoBehaviour
         size = player.transform.localScale;
         Movement();
         Size();
+
+        if (Input.GetButton("Fire1")) {
+            if (fireTimer > 0) {
+                fireTimer -= Time.deltaTime;
+            }
+            else {
+                Shoot(FindMouse());
+                fireTimer = fireRate;
+            }
+        }
     }
 
     private void Movement() {
@@ -95,9 +110,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Shoot(GameObject target) {
+    private Vector3 FindMouse() {
+        //...setting shoot direction
+        shootDirection = Input.mousePosition;
+        shootDirection.z = 0.0f;
+        shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
+        shootDirection = shootDirection - transform.position;
+        return shootDirection;
+    }
+
+    private void Shoot(Vector3 target) {
         GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
-        projectileRb.AddForce((target.transform.position - projectile.transform.position) * projectileSpeed);       //fire towards target
+        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 }
