@@ -131,6 +131,10 @@ MonoBehaviour:
   minimumSize: 0
   size: {x: 0, y: 0, z: 0}
   timeScale: 0
+  projectilePrefab: {fileID: 4829990695092999787, guid: 05228b7d38c3aeb468743261e4d21a82,
+    type: 3}
+  projectileSpeed: 30
+  fireRate: 0.5
 --- !u!61 &4148627803484204746
 BoxCollider2D:
   m_ObjectHideFlags: 0
