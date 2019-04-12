@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     [SerializeField] private float projectileSpeed = 20;
     [SerializeField] private float fireRate = 0.1f;
+    [SerializeField] private float hp = 100;
+    public GameObject healthBar;
+    [SerializeField] private bool dead = false;
 
     private float fireTimer;
     private Vector3 shootDirection;
@@ -124,5 +127,20 @@ public class PlayerController : MonoBehaviour
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.tag.Equals("Projectile")) {    //collide with projectile
+            if (hp > 0) {
+                dead = false;
+                hp--;
+            }
+            else {
+                dead = true;
+                //Destroy(gameObject);
+            }
+            healthBar.transform.localScale = new Vector2(hp, healthBar.transform.localScale.y);
+            //Debug.Log("Hit" + hp);
+        }
     }
 }

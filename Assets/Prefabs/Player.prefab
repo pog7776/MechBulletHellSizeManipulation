@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5027790042568161298}
   - component: {fileID: 3567433363558788368}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Character Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4148627803484204744}
   - component: {fileID: 4148627803484204746}
   - component: {fileID: 4148627803484204741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -135,6 +135,7 @@ MonoBehaviour:
     type: 3}
   projectileSpeed: 20
   fireRate: 0.1
+  HP: 100
 --- !u!61 &4148627803484204746
 BoxCollider2D:
   m_ObjectHideFlags: 0

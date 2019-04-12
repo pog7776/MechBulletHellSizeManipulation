@@ -9,8 +9,9 @@ public class EnemyController : MonoBehaviour
     public CircleCollider2D vision;
     public TextMeshPro fireText;
 
-    [SerializeField] private float projectileSpeed = 30;
+    [SerializeField] private float projectileSpeed = 10;
     [SerializeField] private float fireRate = 0.5f;
+    private Vector3 shootDirection;
 
     private float fireTimer;
     private GameObject player;
@@ -45,7 +46,9 @@ public class EnemyController : MonoBehaviour
     private void Shoot(GameObject target) {
         GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
-        projectileRb.AddForce((target.transform.position - projectile.transform.position) * projectileSpeed);       //fire towards target
+        shootDirection = target.transform.position - projectile.transform.position;
+        //projectileRb.AddForce((target.transform.position - projectile.transform.position) * projectileSpeed);       //fire towards target
+        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
