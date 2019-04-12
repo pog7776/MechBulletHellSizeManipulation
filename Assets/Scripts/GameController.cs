@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
         radius = player.GetComponent<PlayerController>().size.x;      //get player size
 
         foreach(GameObject enemy in enemies) {
-            enemy.GetComponent<EnemyController>().visionRadius = radius * 10;    //for each enemy in the scene, change it's radius according to the players size
+            enemy.GetComponent<EnemyController>().visionRadius = radius * 10;    //for each enemy in the scene, change it's vision radius according to the players size
         }
     }
 }

@@ -14,10 +14,10 @@ public class PlayerController : MonoBehaviour
     [Header("Scale Properties")]
     [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
     [SerializeField] private bool minimumSize = false;  //is player the minimum size
-    [SerializeField] public Vector3 size;           //current size
-    [SerializeField] private float timeScale;        //current timeScale
+    [SerializeField] public Vector3 size;               //current size
+    [SerializeField] private float timeScale;           //current timeScale
 
-    private Vector3 scaleVector;                     //modifier of scale
+    private Vector3 scaleVector;                        //modifier of scale
 
     [Header("Combat Properties")]
     public GameObject projectilePrefab;
@@ -86,23 +86,22 @@ public class PlayerController : MonoBehaviour
             minimumSize = false;
         }
 
-        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0) {     //enlarge player
+        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0) {                         //enlarge player
             player.transform.localScale = size + scaleVector;
 
             //cam.transform.position.Set(player.transform.position.x, player.transform.position.y, cam.transform.position.z + scaleVector.z);  //please don't remove this, i want to do something with it  -jack
 
-            cam.orthographicSize += scaleVector.x * 5;
-
-            changeTime(size.x);     //modify timescale
+            cam.orthographicSize += scaleVector.x * 5;                          //modify camera
+            changeTime(size.x);                                                 //modify timescale
         }
         else if(Input.GetAxisRaw("Mouse ScrollWheel") > 0 && !minimumSize) {    //shrink player
             player.transform.localScale = size - scaleVector;
 
             if (cam.orthographicSize - scaleVector.x * 5 > 0) {     //ensure camera size doesn't become a negative
-                cam.orthographicSize -= scaleVector.x * 5;
+                cam.orthographicSize -= scaleVector.x * 5;          //modify camera
             }
 
-            changeTime(size.x);     //modify timescale
+            changeTime(size.x);                                     //modify timescale
         }
     }
 
@@ -129,15 +128,19 @@ public class PlayerController : MonoBehaviour
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 
-    private void OnTriggerExit2D(Collider2D collision) {
+    private void die() {
+        dead = true;
+        Destroy(gameObject);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag.Equals("Projectile")) {    //collide with projectile
             if (hp > 0) {
-                dead = false;
                 hp--;
             }
             else {
-                dead = true;
-                //Destroy(gameObject);
+                die();
             }
             healthBar.transform.localScale = new Vector2(hp, healthBar.transform.localScale.y);
             //Debug.Log("Hit" + hp);
