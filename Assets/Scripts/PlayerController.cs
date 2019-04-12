@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [Header("Scale Properties")]
     [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
     [SerializeField] private bool minimumSize = false;  //is player the minimum size
-    [SerializeField] private Vector3 size;           //current size
+    [SerializeField] public Vector3 size;           //current size
     [SerializeField] private float timeScale;        //current timeScale
 
     private Vector3 scaleVector;                     //modifier of scale

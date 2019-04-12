@@ -6,6 +6,7 @@ using TMPro;
 public class EnemyController : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public CircleCollider2D vision;
     public TextMeshPro fireText;
 
     [SerializeField] private float projectileSpeed = 30;
@@ -13,6 +14,8 @@ public class EnemyController : MonoBehaviour
 
     private float fireTimer;
     private GameObject player;
+
+    [HideInInspector] public float visionRadius;
 
 
     // Start is called before the first frame update
@@ -24,6 +27,9 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        vision.radius = visionRadius;
+
         if (player != null) {
             if (fireTimer > 0) {
                 fireTimer -= Time.deltaTime;
