@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         radius = player.GetComponent<PlayerController>().size.x;      //get player size
-        oldRadius = radius;
     }
 
     // Update is called once per frame
