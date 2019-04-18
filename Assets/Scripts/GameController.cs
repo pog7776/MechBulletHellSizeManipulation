@@ -29,7 +29,14 @@ public class GameController : MonoBehaviour
         radius = player.GetComponent<PlayerController>().size.x;      //get player size
 
         foreach(GameObject enemy in enemies) {
-            enemy.GetComponent<EnemyController>().visionRadius = radius * 10;    //for each enemy in the scene, change it's vision radius according to the players size
+            //enemy.GetComponent<CircleCollider2D>().radius;        //use later to set starting radius of each enemy and apply player size to it
+            
+            if(radius < 1.55) {
+                enemy.GetComponent<EnemyController>().visionRadius = 4.7f;                      //minimum vision radius
+            }
+            else {
+                enemy.GetComponent<EnemyController>().visionRadius = Mathf.Exp(radius);         //for each enemy in the scene, change its vision according to the players size exponentially 
+            }
         }
     }
 }
