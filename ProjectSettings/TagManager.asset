@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Projectile
   - PlayerProjectile
+  - MainMenu
+  - LevelSelect
   layers:
   - Default
   - TransparentFX
