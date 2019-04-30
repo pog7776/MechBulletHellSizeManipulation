@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public CircleCollider2D vision;
     public TextMeshPro fireText;
 
+    [SerializeField] public float hp = 20;
+    [SerializeField] private bool dead = false;
     [SerializeField] private float projectileSpeed = 10;
     [SerializeField] private float fireRate = 0.5f;
     private Vector3 shootDirection;
@@ -28,6 +30,10 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(hp <= 0) {
+            die();
+        }
 
         vision.radius = visionRadius;
 
@@ -49,6 +55,11 @@ public class EnemyController : MonoBehaviour
         shootDirection = target.transform.position - projectile.transform.position;
         //projectileRb.AddForce((target.transform.position - projectile.transform.position) * projectileSpeed);       //fire towards target
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+    }
+
+    private void die() {
+        dead = true;
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

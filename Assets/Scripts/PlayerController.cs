@@ -60,6 +60,10 @@ public class PlayerController : MonoBehaviour
                 fireTimer = fireRate;
             }
         }
+
+        if (speed < 0) {
+            speed = 1;
+        }
     }
 
     private void Movement() {
@@ -93,6 +97,15 @@ public class PlayerController : MonoBehaviour
 
             cam.orthographicSize += scaleVector.x * 5;                          //modify camera
             changeTime(size.x);                                                 //modify timescale
+            /*
+            if(speed-- > 0) {
+                speed--;
+            }
+            else {
+                speed = 1;
+            }
+            */
+            speed -= size.x;
         }
         else if(Input.GetAxisRaw("Mouse ScrollWheel") > 0 && !minimumSize) {    //shrink player
             player.transform.localScale = size - scaleVector;
@@ -102,6 +115,7 @@ public class PlayerController : MonoBehaviour
             }
 
             changeTime(size.x);                                     //modify timescale
+            speed += size.x;
         }
     }
 

@@ -130,8 +130,10 @@ MonoBehaviour:
     type: 3}
   vision: {fileID: 6070362289407200533}
   fireText: {fileID: 6070362290904445536}
-  projectileSpeed: 10
-  fireRate: 0.5
+  hp: 20
+  dead: 0
+  projectileSpeed: 30
+  fireRate: 0.2
   visionRadius: 0
 --- !u!58 &6070362289407200533
 CircleCollider2D:

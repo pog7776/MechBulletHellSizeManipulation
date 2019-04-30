@@ -6,6 +6,8 @@ public class ProjectileController : MonoBehaviour
 {
     private float lifeTime = 10;
 
+    //[SerializeField] private float damage = 20;
+
     // Start is called before the first frame update
     void Start()
     {
