@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Properties")]
     [SerializeField] private float speed = 8;           //speed of player movement
+    [SerializeField] private float fuel = 40;
 
     [Header("Scale Properties")]
     [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
@@ -21,14 +22,19 @@ public class PlayerController : MonoBehaviour
 
     [Header("Combat Properties")]
     public GameObject projectilePrefab;
+    //public GameObject projectile2Prefab;
     [SerializeField] private float projectileSpeed = 20;
     [SerializeField] private float fireRate = 0.1f;
+    //[SerializeField] private float rocketRate = 0.1f;
     [SerializeField] private float hp = 100;
     public GameObject healthBar;
     [SerializeField] private bool dead = false;
 
     private float fireTimer;
     private Vector3 shootDirection;
+
+    private float lastTapTime = 0;
+    private float tapSpeed = 0.5f;
 
 
     // Start is called before the first frame update
@@ -60,6 +66,36 @@ public class PlayerController : MonoBehaviour
                 fireTimer = fireRate;
             }
         }
+
+        /*
+        if (Input.GetButton("Fire2"))
+        {
+            if (fireTimer > 0)
+            {
+                fireTimer -= Time.deltaTime;
+            }
+            else
+            {
+                Shoot2(FindMouse());
+                fireTimer = fireRate;
+            }
+        }*/
+
+        //Experimenting double tapping for dash
+        /*
+        if (Input.GetButtonDown("Horizontal"))
+        {
+
+            if ((Time.time - lastTapTime) < tapSpeed)
+            {
+                Debug.Log("Double tap");
+                player.transform.position.x += 200;
+            }
+            lastTapTime = Time.time;
+
+        }*/
+
+        SpeedPower();
 
         if (speed < 0) {
             speed = 1;
@@ -126,6 +162,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SpeedPower()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (fuel < 0)
+            {
+                speed = 8;
+            }
+            else
+            {
+                speed = 16;
+                fuel -= Time.deltaTime;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed = 8;
+            while (fuel < 40)
+            {
+                fuel += Time.deltaTime;
+            }
+        }
+    }
+
     private Vector3 FindMouse() {
         //...setting shoot direction
         shootDirection = Input.mousePosition;
@@ -141,6 +202,15 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
+
+    //Secondary Weapon
+    /*private void Shoot2(Vector3 target)
+    {
+        GameObject projectile = Instantiate(projectile2Prefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        projectile.transform.localScale = size;
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
+        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+    }*/
 
     private void die() {
         dead = true;
