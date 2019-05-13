@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public GameObject projectilePrefab;
     public CircleCollider2D vision;
     public TextMeshPro fireText;
+    public float projectileVelocity;
 
     [SerializeField] public float hp = 20;
     [SerializeField] private bool dead = false;
