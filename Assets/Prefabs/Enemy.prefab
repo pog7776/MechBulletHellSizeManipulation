@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 4829990695092999787, guid: 05228b7d38c3aeb468743261e4d21a82,
     type: 3}
-  vision: {fileID: 0}
+  vision: {fileID: 8875966014715318543}
   fireText: {fileID: 6070362290904445536}
   projectileVelocity: 0
   visionObject: {fileID: 1538882346482207327}
