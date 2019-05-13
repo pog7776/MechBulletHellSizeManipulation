@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public CircleCollider2D vision;
     public TextMeshPro fireText;
     public float projectileVelocity;
+    public GameObject visionObject;
 
     [SerializeField] public float hp = 20;
     [SerializeField] private bool dead = false;
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         fireTimer = 0;
+        vision = visionObject.GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame

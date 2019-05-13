@@ -23,7 +23,7 @@ public class PlayerProjectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag.Equals("Enemy")) {    //collide with projectile
             if (collision.GetComponent<EnemyController>().hp > 0) {
                 collision.GetComponent<EnemyController>().hp--;
