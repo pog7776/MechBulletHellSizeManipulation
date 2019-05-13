@@ -159,6 +159,7 @@ public class PlayerController : MonoBehaviour
         if (timeShift > 0.05 && timeShift < 10) {       //maximum time change
             timeScale = timeShift;                      //to monitor current time scale
             Time.timeScale = timeScale;                 //set time scale
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
         }
     }
 
