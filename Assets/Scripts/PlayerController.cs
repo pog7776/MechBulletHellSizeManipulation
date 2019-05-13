@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
 
     [Header("Movement Properties")]
-    [SerializeField] private float speed = 8;           //speed of player movement
+    [SerializeField] private float speed = 15;           //speed of player movement
     [SerializeField] private float fuel = 40;
 
     [Header("Scale Properties")]
@@ -126,24 +126,13 @@ public class PlayerController : MonoBehaviour
             minimumSize = false;
         }
 
-        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0) {                         //enlarge player
+        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0  && !dead) {                       //enlarge player
             player.transform.localScale = size + scaleVector;
-
-            //cam.transform.position.Set(player.transform.position.x, player.transform.position.y, cam.transform.position.z + scaleVector.z);  //please don't remove this, i want to do something with it  -jack
-
-            cam.orthographicSize += scaleVector.x * 5;                          //modify camera
-            changeTime(size.x);                                                 //modify timescale
-            /*
-            if(speed-- > 0) {
-                speed--;
-            }
-            else {
-                speed = 1;
-            }
-            */
-            speed -= size.x;
+            cam.orthographicSize += scaleVector.x * 5;               //modify camera
+            changeTime(size.x);                                      //modify timescale
+            speed -= size.x*3;
         }
-        else if(Input.GetAxisRaw("Mouse ScrollWheel") > 0 && !minimumSize) {    //shrink player
+        else if(Input.GetAxisRaw("Mouse ScrollWheel") > 0 && !minimumSize && !dead) {   //shrink player
             player.transform.localScale = size - scaleVector;
 
             if (cam.orthographicSize - scaleVector.x * 5 > 0) {     //ensure camera size doesn't become a negative
@@ -151,7 +140,7 @@ public class PlayerController : MonoBehaviour
             }
 
             changeTime(size.x);                                     //modify timescale
-            speed += size.x;
+            speed += size.x*3;
         }
     }
 
@@ -215,7 +204,8 @@ public class PlayerController : MonoBehaviour
 
     private void die() {
         dead = true;
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        Time.timeScale = 0;
     }
 
 
