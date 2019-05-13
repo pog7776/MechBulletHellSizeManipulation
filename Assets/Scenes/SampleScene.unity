@@ -15750,6 +15750,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
       propertyPath: fuel
       value: 40
       objectReference: {fileID: 0}
