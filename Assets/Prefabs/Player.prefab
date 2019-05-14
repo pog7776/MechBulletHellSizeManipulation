@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
+  fuel: 40
   scaleSpeed: 0.1
   minimumSize: 0
   size: {x: 0, y: 0, z: 0}
@@ -135,7 +136,9 @@ MonoBehaviour:
     type: 3}
   projectileSpeed: 20
   fireRate: 0.1
-  HP: 100
+  hp: 100
+  healthBar: {fileID: 0}
+  dead: 0
 --- !u!61 &4148627803484204746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,8 +178,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

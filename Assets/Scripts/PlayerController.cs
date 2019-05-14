@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Scale Properties")]
     [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
     [SerializeField] private bool minimumSize = false;  //is player the minimum size
+    [SerializeField] private bool maximumSize = false;  //is player the minimum size
     [SerializeField] public Vector3 size;               //current size
     [SerializeField] private float timeScale;           //current timeScale
 
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float hp = 100;
     public GameObject healthBar;
     [SerializeField] private bool dead = false;
+    public GameObject deadText;
 
     private float fireTimer;
     private Vector3 shootDirection;
@@ -57,6 +61,8 @@ public class PlayerController : MonoBehaviour
         Movement();
         Size();
 
+        //changeTime(size.x); 
+
         if (Input.GetButton("Fire1")) {
             if (fireTimer > 0) {
                 fireTimer -= Time.deltaTime;
@@ -65,6 +71,10 @@ public class PlayerController : MonoBehaviour
                 Shoot(FindMouse());
                 fireTimer = fireRate;
             }
+        }
+
+        if(Input.GetButtonDown("Reset")){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         /*
@@ -119,14 +129,21 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Size() {
-        if(size.x - scaleVector.x <= 0) {       //check if player can shrink anymore
+        if(size.x - scaleVector.x <= 0.05) {       //check if player can shrink anymore
             minimumSize = true;
         }
         else {
             minimumSize = false;
         }
 
-        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0  && !dead) {                       //enlarge player
+        if(size.x + scaleVector.x >= 2) {       //check if player can shrink anymore
+            maximumSize = true;
+        }
+        else {
+            maximumSize = false;
+        }
+
+        if(Input.GetAxisRaw("Mouse ScrollWheel") < 0 && !maximumSize  && !dead) {                       //enlarge player
             player.transform.localScale = size + scaleVector;
             cam.orthographicSize += scaleVector.x * 5;               //modify camera
             changeTime(size.x);                                      //modify timescale
@@ -206,6 +223,8 @@ public class PlayerController : MonoBehaviour
         dead = true;
         //Destroy(gameObject);
         Time.timeScale = 0;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        deadText.SetActive(true);
     }
 
 
@@ -217,7 +236,7 @@ public class PlayerController : MonoBehaviour
             else {
                 die();
             }
-            healthBar.transform.localScale = new Vector2(hp, healthBar.transform.localScale.y);
+            healthBar.transform.localScale = new Vector2(hp/200, healthBar.transform.localScale.y);
             //Debug.Log("Hit" + hp);
         }
     }

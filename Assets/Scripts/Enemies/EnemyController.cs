@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
             die();
         }
 
-        vision.radius = visionRadius;
+        vision.radius = visionRadius*1.5f;
 
         if (player != null) {
             if (fireTimer > 0) {
