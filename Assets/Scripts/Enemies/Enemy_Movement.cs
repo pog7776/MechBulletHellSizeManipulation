@@ -30,13 +30,12 @@ private float turnTime;
             turnTime--; 
         }
         else{
-            BossMove(turn);
+            EnemyMove(turn);
             turnTime = turnTimer;
-            //BossMove(0);
         }
     }
 
-    private void BossMove(float direction){
+    private void EnemyMove(float direction){
         //gameObject.transform.Rotate(direction, 0, 0, Space.Self);
         //rb.AddTorque(transform.up * torque * turn);
         rb.AddTorque(turn*torque);

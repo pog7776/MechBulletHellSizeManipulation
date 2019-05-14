@@ -28,7 +28,7 @@ public class PlayerProjectile : MonoBehaviour
             if (collision.GetComponent<EnemyController>().hp > 0) {
                 collision.GetComponent<EnemyController>().hp--;
             }
-            Debug.Log("Hit Enemy" + collision.GetComponent<EnemyController>().hp);
+            //Debug.Log("Hit Enemy" + collision.GetComponent<EnemyController>().hp);
         }
     }
 }

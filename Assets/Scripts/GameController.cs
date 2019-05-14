@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
                 enemy.GetComponent<EnemyController>().visionRadius = 5.75f;                      //minimum vision radius
             }
             else {
-                enemy.GetComponent<EnemyController>().visionRadius = Mathf.Exp(radius);         //for each enemy in the scene, change its vision according to the players size exponentially 
+                enemy.GetComponent<EnemyController>().visionRadius = Mathf.Exp(radius);          //for each enemy in the scene, change its vision according to the players size exponentially 
             }
         }
     }
