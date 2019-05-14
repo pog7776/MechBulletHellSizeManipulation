@@ -52,6 +52,10 @@ public class PlayerController : MonoBehaviour
         size = player.transform.localScale;
 
         fireTimer = 0;
+        if(!dead){
+            Time.timeScale = 1;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        }
     }
 
     // Update is called once per frame
@@ -60,6 +64,8 @@ public class PlayerController : MonoBehaviour
         size = player.transform.localScale;
         Movement();
         Size();
+
+        //transform.LookAt(FindMouse());
 
         //changeTime(size.x); 
 
