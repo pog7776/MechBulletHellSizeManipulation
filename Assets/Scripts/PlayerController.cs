@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
         Movement();
         Size();
 
+        //transform.LookAt(FindMouse());
+
         //changeTime(size.x); 
 
         if (Input.GetButton("Fire1")) {
