@@ -366,6 +366,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: fuel
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: doubleSpeed
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 4829990695092999787, guid: 44fd9f5370c933047a577632bafb4c14,
+        type: 3}
     - target: {fileID: 4148627804256480722, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
       propertyPath: m_BackGroundColor.r

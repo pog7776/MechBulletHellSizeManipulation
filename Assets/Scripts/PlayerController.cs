@@ -12,7 +12,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Properties")]
     [SerializeField] private float speed = 15;           //speed of player movement
-    [SerializeField] private float fuel = 40;
+    [SerializeField] private float doubleSpeed;    //speed up for speedup mechanic
+    private float maxFuel = 40;         //How much fuel we want to give the speedup
+    [SerializeField] private float fuel;           //Usable Resource for SpeedUp Mechanic
+    private bool isSpedUp = false;
+    private float baseSpeed;
 
     [Header("Scale Properties")]
     [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
@@ -37,9 +41,6 @@ public class PlayerController : MonoBehaviour
     private float fireTimer;
     private Vector3 shootDirection;
 
-    private float lastTapTime = 0;
-    private float tapSpeed = 0.5f;
-
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,10 @@ public class PlayerController : MonoBehaviour
             Time.timeScale = 1;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
         }
+
+        doubleSpeed = speed * 2;        //for speed up mechanic to get variable speed
+        fuel = maxFuel;                 //Giving fuel for player
+        baseSpeed = speed;              //Record original speed
     }
 
     // Update is called once per frame
@@ -79,10 +84,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("Reset")){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
+        //Shoot shotgun type gun
         /*
         if (Input.GetButton("Fire2"))
         {
@@ -92,26 +94,16 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Shoot2(FindMouse());
+                Shoot(FindMouse());
                 fireTimer = fireRate;
             }
         }*/
 
-        //Experimenting double tapping for dash
-        /*
-        if (Input.GetButtonDown("Horizontal"))
-        {
+        if (Input.GetButtonDown("Reset")){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
-            if ((Time.time - lastTapTime) < tapSpeed)
-            {
-                Debug.Log("Double tap");
-                player.transform.position.x += 200;
-            }
-            lastTapTime = Time.time;
-
-        }*/
-
-        SpeedPower();
+        SpeedUp();
 
         if (speed < 0) {
             speed = 1;
@@ -175,28 +167,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SpeedPower()
+    private void SpeedUp()                              //Speed up Mechanic
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (fuel < 0)
-            {
-                speed = 8;
-            }
-            else
-            {
-                speed = 16;
-                fuel -= Time.deltaTime;
-            }
+            SetSpeed(true);
+            Debug.Log("Shift Down");
         }
-
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            speed = 8;
-            while (fuel < 40)
+            SetSpeed(false);
+            Debug.Log("Shift Up");
+        }
+        if (isSpedUp)
+        {
+            fuel -= Time.deltaTime;
+            if (fuel < 0)
+            {
+                fuel = 0;
+                SetSpeed(false);
+            }
+            else if (fuel < maxFuel)
             {
                 fuel += Time.deltaTime;
             }
+        }
+    }
+
+    private void SetSpeed(bool isSpedUp)                          //Check if player is speeding up
+    {
+        if (isSpedUp) {
+            speed = doubleSpeed;
+        }
+        else if (!isSpedUp)
+        {
+            speed = baseSpeed;
         }
     }
 
@@ -216,13 +221,24 @@ public class PlayerController : MonoBehaviour
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 
-    //Secondary Weapon
-    /*private void Shoot2(Vector3 target)
+
+    /*Shotgun
+    private void Shoot3(Vector3 target)
     {
-        GameObject projectile = Instantiate(projectile2Prefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+
+        GameObject projectile2 = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        projectile.transform.localScale = size;
+        Rigidbody2D projectile2Rb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
+        projectileRb.velocity = new Vector2(shootDirection.x - 3, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+
+        GameObject projectile3 = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        projectile.transform.localScale = size;
+        Rigidbody2D projectile3Rb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
+        projectileRb.velocity = new Vector2(shootDirection.x + 3, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }*/
 
     private void die() {
