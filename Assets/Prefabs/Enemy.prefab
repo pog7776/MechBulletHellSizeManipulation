@@ -182,6 +182,9 @@ MonoBehaviour:
   projectileVelocity: 0
   visionObject: {fileID: 1538882346482207327}
   hp: 20
+  hitTime: 0.2
+  normal: {r: 1, g: 1, b: 1, a: 1}
+  hit: {r: 1, g: 0, b: 0, a: 1}
   dead: 0
   projectileSpeed: 30
   fireRate: 0.2

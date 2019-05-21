@@ -12,6 +12,10 @@ public class EnemyController : MonoBehaviour
     public GameObject visionObject;
 
     [SerializeField] public float hp = 20;
+    private float previousHp;
+    [SerializeField] private float hitTime = 0.2f;
+    [SerializeField] private Color normal;
+    [SerializeField] private Color hit;
     [SerializeField] private bool dead = false;
     [SerializeField] private float projectileSpeed = 10;
     [SerializeField] private float fireRate = 0.5f;
@@ -28,11 +32,15 @@ public class EnemyController : MonoBehaviour
     {
         fireTimer = 0;
         vision = visionObject.GetComponent<CircleCollider2D>();
+        previousHp = hp;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(hp < previousHp){
+            StartCoroutine(HitColour());
+        }
 
         if(hp <= 0) {
             die();
@@ -77,5 +85,11 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Enemy Lost Player" + collision);
             player = null;
         }
+    }
+
+    private IEnumerator HitColour(){
+        GetComponentInChildren<SpriteRenderer>().color = hit;
+        yield return new WaitForSeconds(hitTime);
+        GetComponentInChildren<SpriteRenderer>().color = normal;
     }
 }
