@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
 
     [Header("Movement Properties")]
-    [SerializeField] private float speed = 15;           //speed of player movement
+    [SerializeField] private float speed;           //speed of player movement
+    [SerializeField] private float baseSpeed = 15;
     [SerializeField] private float fuel = 40;
 
     [Header("Scale Properties")]
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
         player = GameObject.Find("Player");
         cam = Camera.main;
         Debug.Log("Camera found: " + cam + cam.name);
+        speed = baseSpeed;
 
         scaleVector.Set(scaleSpeed, scaleSpeed, scaleSpeed);
         size = player.transform.localScale;
@@ -157,7 +159,7 @@ public class PlayerController : MonoBehaviour
             cam.orthographicSize += scaleVector.x * 5;               //modify camera
             changeTime(size.x);                                      //modify timescale
             //speed -= size.x*3;
-            speed = 15-size.x*5;
+            speed = baseSpeed-size.x*5;
         }
         else if(Input.GetAxisRaw("Mouse ScrollWheel") > 0 && !minimumSize && !dead) {   //shrink player
             player.transform.localScale = size - scaleVector;
@@ -168,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
             changeTime(size.x);                                     //modify timescale
             //speed += size.x*3;
-            speed = 15+size.x*5;
+            speed = baseSpeed+size.x*5;
         }
     }
 
