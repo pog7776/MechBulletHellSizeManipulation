@@ -23,7 +23,7 @@ private float turnTime;
     void Update()
     {
         turn = Random.Range(-10, 10);
-        Debug.Log(turn);
+        //Debug.Log(turn);
 
         if (turnTime > 0)
         {

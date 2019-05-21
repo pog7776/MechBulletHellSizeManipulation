@@ -115,8 +115,9 @@ public class PlayerController : MonoBehaviour
 
         SpeedPower();
 
-        if (speed < 0) {
-            speed = 1;
+        if (speed <= 0) {
+            //speed = 1;
+            Debug.Log(size.x);
         }
     }
 
@@ -155,7 +156,8 @@ public class PlayerController : MonoBehaviour
             player.transform.localScale = size + scaleVector;
             cam.orthographicSize += scaleVector.x * 5;               //modify camera
             changeTime(size.x);                                      //modify timescale
-            speed -= size.x*3;
+            //speed -= size.x*3;
+            speed = 15-size.x*5;
         }
         else if(Input.GetAxisRaw("Mouse ScrollWheel") > 0 && !minimumSize && !dead) {   //shrink player
             player.transform.localScale = size - scaleVector;
@@ -165,7 +167,8 @@ public class PlayerController : MonoBehaviour
             }
 
             changeTime(size.x);                                     //modify timescale
-            speed += size.x*3;
+            //speed += size.x*3;
+            speed = 15+size.x*5;
         }
     }
 
