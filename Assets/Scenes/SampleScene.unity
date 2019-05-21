@@ -661,6 +661,91 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -32.4
       objectReference: {fileID: 0}
+    - target: {fileID: 3879303083503312753, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.8700008
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083503312759, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.8699989
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083503312756, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.8700008
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083503312757, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.869997
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303082239761913, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.2900009
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303082437417850, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.289999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303082900412452, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.2900009
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083593236113, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 1.2900009
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303082248746490, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.5250015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303082453313798, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.960001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303082970911873, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.5250015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083124743686, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.5250015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083399126780, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.5249996
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083962226043, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303083982636237, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.9599991
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303084021242629, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.9599991
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879303084079930888, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_Distance
+      value: 0.9599991
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cc6db3190ed2f246934bbb572013610, type: 3}
 --- !u!1001 &4148627804171376045
@@ -674,6 +759,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148627804256480722, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: orthographic size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7949713654535878300, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
@@ -815,11 +905,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148627804256480722, guid: 377bfb797ee85b54dbdffa8968dfd39e,
-        type: 3}
-      propertyPath: orthographic size
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 377bfb797ee85b54dbdffa8968dfd39e, type: 3}

@@ -29,6 +29,7 @@ public class PlayerProjectile : MonoBehaviour
                 collision.GetComponent<EnemyController>().hp--;
             }
             //Debug.Log("Hit Enemy" + collision.GetComponent<EnemyController>().hp);
+            Destroy(gameObject);
         }
     }
 }
