@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
         size = player.transform.localScale;
         Movement();
         Size();
+        Rotation();
+        cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
         //transform.LookAt(FindMouse());
 
@@ -207,6 +209,12 @@ public class PlayerController : MonoBehaviour
         shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
         shootDirection = shootDirection - transform.position;
         return shootDirection;
+    }
+
+    private void Rotation() {
+		float angle = Mathf.Atan2(FindMouse().y, FindMouse().x) * Mathf.Rad2Deg;        //rotating the player
+        angle-=90;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private void Shoot(Vector3 target) {
