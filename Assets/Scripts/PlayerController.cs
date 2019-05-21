@@ -67,13 +67,10 @@ public class PlayerController : MonoBehaviour
         Movement();
         Size();
         Rotation();
+
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
-        //transform.LookAt(FindMouse());
-
-        //changeTime(size.x); 
-
-        if (Input.GetButton("Fire1")) {
+        if (Input.GetButton("Fire1")) {         //move this to it's own method later jack! - jack
             if (fireTimer > 0) {
                 fireTimer -= Time.unscaledDeltaTime;
             }
@@ -226,6 +223,11 @@ public class PlayerController : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
+
+        float damage = projectile.GetComponent<PlayerProjectile>().damage;                                            //get damage of projectile
+        damage = damage * size.x;                                                                 //set damage value
+        projectile.GetComponent<PlayerProjectile>().damage = damage;                                                //apply damage value
+
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 
