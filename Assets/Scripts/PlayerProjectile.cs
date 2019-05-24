@@ -33,5 +33,10 @@ public class PlayerProjectile : MonoBehaviour
             //Debug.Log("Hit Enemy" + collision.GetComponent<EnemyController>().hp);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag.Equals("ArenaWalls"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

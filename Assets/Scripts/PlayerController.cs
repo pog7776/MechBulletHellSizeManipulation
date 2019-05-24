@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Properties")]
     [SerializeField] private float speed;           //speed of player movement
-    [SerializeField] private float baseSpeed = 15;
-    [SerializeField] private float fuel = 40;
+    private float baseSpeed;                        //Original speed of player
+    [SerializeField] private float maxFuel;         //Amount of fuel for speed up
+    [SerializeField] private float fuel;            //Current fuel amount
+    private bool isSpedUp;                          //Check if player is sped up
 
     [Header("Scale Properties")]
     [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
@@ -25,22 +27,32 @@ public class PlayerController : MonoBehaviour
     private Vector3 scaleVector;                        //modifier of scale
 
     [Header("Combat Properties")]
-    public GameObject projectilePrefab;
-    //public GameObject projectile2Prefab;
-    [SerializeField] private float projectileSpeed = 20;
-    [SerializeField] private float fireRate = 0.1f;
-    //[SerializeField] private float rocketRate = 0.1f;
     [SerializeField] private float hp = 100;
     public GameObject healthBar;
     [SerializeField] private bool dead = false;
     public GameObject deadText;
-
     private float fireTimer;
     private Vector3 shootDirection;
 
-    private float lastTapTime = 0;
-    private float tapSpeed = 0.5f;
+    [Header("Normal Gun")]
+    public GameObject projectilePrefab;
+    [SerializeField] private float projectileSpeed = 20;
+    [SerializeField] private float fireRate = 0.1f;
 
+    [Header("ShotGun")]
+    public GameObject shotgunPrefab;                     //Art Asset for the shotgun bullets
+
+    [Header("Rocket")]
+    public GameObject rocketPrefab;                     //Art Asset for the Rocket
+    [SerializeField] private int maxRocketAmmo;        //How many rockets the player is allowed
+    [SerializeField] private int rocketAmmo;        //How many rockets the player currently has
+    [SerializeField] private float rocketReload;    //How long between reload
+    [SerializeField] private float rocketSpeed;     //How fast the rocket is
+
+    [Header("Shield")]
+    public GameObject shieldPrefab;                     //Art Asset for the Shield
+    [SerializeField] private float shieldDuration;
+    private bool shieldUp;                              //Check if shield is active
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +60,9 @@ public class PlayerController : MonoBehaviour
         player = GameObject.Find("Player");
         cam = Camera.main;
         Debug.Log("Camera found: " + cam + cam.name);
-        speed = baseSpeed;
+        baseSpeed = speed;
+        fuel = maxFuel;                 //Fuel Amount
+        rocketAmmo = maxRocketAmmo;     //Rocket amount
 
         scaleVector.Set(scaleSpeed, scaleSpeed, scaleSpeed);
         size = player.transform.localScale;
@@ -84,8 +98,10 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+
+        //Shotgun Mechanic
         /*
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire1"))
         {
             if (fireTimer > 0)
             {
@@ -93,26 +109,39 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Shoot2(FindMouse());
+                ShotgunShoot(FindMouse());
                 fireTimer = fireRate;
             }
         }*/
 
-        //Experimenting double tapping for dash
-        /*
-        if (Input.GetButtonDown("Horizontal"))
+        //Rocket Mechanic
+        if (Input.GetButtonDown("Rocket"))
         {
-
-            if ((Time.time - lastTapTime) < tapSpeed)
+            if(rocketAmmo > 0)
             {
-                Debug.Log("Double tap");
-                player.transform.position.x += 200;
+                RocketShoot(FindMouse());
+                rocketAmmo-= 1;
             }
-            lastTapTime = Time.time;
+        }
+        //Reloading rocket
+        if (rocketAmmo < maxRocketAmmo)
+        {
+            rocketReload += Time.deltaTime;
 
-        }*/
+            if (rocketReload > 10)
+            {
+                rocketAmmo += 1;
+                rocketReload = 0;
+                Debug.Log("Reloaded rocket");
+            }
+        }
 
+        //Shield Mechanic
+        ShieldPower();
+
+        //Speedup Mechanic
         SpeedPower();
+        SpedUp();
 
         if (speed <= 0) {
             //speed = 1;
@@ -181,26 +210,36 @@ public class PlayerController : MonoBehaviour
 
     private void SpeedPower()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            if (fuel < 0)
-            {
-                speed = 8;
-            }
-            else
-            {
-                speed = 16;
-                fuel -= Time.deltaTime;
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            isSpedUp = true;
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
+            isSpedUp = false;
+
+        if(isSpedUp)
         {
-            speed = 8;
-            while (fuel < 40)
+            fuel -= Time.deltaTime;
+            if(fuel < 0)
             {
-                fuel += Time.deltaTime;
+                fuel = 0;
+                isSpedUp = false;
             }
+        }
+        else if(fuel < maxFuel)
+        {
+            fuel += Time.deltaTime;
+        }
+    }
+
+    private void SpedUp()
+    {
+        if (isSpedUp)
+        {
+            speed = baseSpeed + size.x * 7;
+        }
+        else
+        {
+            speed = baseSpeed + size.x;
         }
     }
 
@@ -231,14 +270,40 @@ public class PlayerController : MonoBehaviour
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 
-    //Secondary Weapon
-    /*private void Shoot2(Vector3 target)
+    //Shotgun Weapon
+    private void ShotgunShoot(Vector3 target)
     {
-        GameObject projectile = Instantiate(projectile2Prefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        GameObject[] shotgunProjectile = new GameObject[3];
+        for (int i = 0; i < shotgunProjectile.Length; i++)
+        {
+            shotgunProjectile[i] = Instantiate(shotgunPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+            shotgunProjectile[i].transform.localScale = size/2;
+            Rigidbody2D shotgunProjectileRb = shotgunProjectile[i].GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
+            shotgunProjectileRb.velocity = new Vector2(shootDirection.x + i, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+        }
+    }
+
+    //Normal Rocket Launcher
+    private void RocketShoot(Vector3 target)
+    {
+        GameObject projectile = Instantiate(rocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         projectile.transform.localScale = size;
-        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
-        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
-    }*/
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target
+    }
+
+    private void ShieldPower()
+    {
+        if (Input.GetButton("Fire2"))
+        {
+            if (!shieldUp)
+            {
+                shieldUp = true;
+                GameObject shield = Instantiate(shieldPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+
+            }
+        }
+    }
 
     private void die() {
         dead = true;
