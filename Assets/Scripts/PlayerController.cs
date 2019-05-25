@@ -64,24 +64,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         size = player.transform.localScale;
+        PrimaryFire();
         Movement();
         Size();
         Rotation();
 
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
-        if (Input.GetButton("Fire1")) {         //move this to it's own method later jack! - jack
-            if (fireTimer > 0) {
-                fireTimer -= Time.unscaledDeltaTime;
-            }
-            else {
-                Shoot(FindMouse());
-                fireTimer = fireRate;
-            }
+        if(Input.GetButtonDown("Reset")){
+            ResetScene();
         }
 
-        if(Input.GetButtonDown("Reset")){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if(Input.GetButtonDown("Fire2")){
+            Blink();
         }
 
         /*
@@ -113,10 +108,17 @@ public class PlayerController : MonoBehaviour
         }*/
 
         SpeedPower();
+    }
 
-        if (speed <= 0) {
-            //speed = 1;
-            Debug.Log(size.x);
+    private void PrimaryFire(){
+         if (Input.GetButton("Fire1")) {
+            if (fireTimer > 0) {
+                fireTimer -= Time.unscaledDeltaTime;
+            }
+            else {
+                Shoot(FindMouse());
+                fireTimer = fireRate;
+            }
         }
     }
 
@@ -144,7 +146,7 @@ public class PlayerController : MonoBehaviour
             minimumSize = false;
         }
 
-        if(size.x + scaleVector.x >= 2) {       //check if player can shrink anymore
+        if(size.x + scaleVector.x >= 2) {       //check if player can grow anymore
             maximumSize = true;
         }
         else {
@@ -224,8 +226,8 @@ public class PlayerController : MonoBehaviour
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
 
-        float damage = projectile.GetComponent<PlayerProjectile>().damage;                                            //get damage of projectile
-        damage = damage * size.x;                                                                 //set damage value
+        float damage = projectile.GetComponent<PlayerProjectile>().damage;                                          //get damage of projectile
+        damage = damage * size.x;                                                                                   //set damage value
         projectile.GetComponent<PlayerProjectile>().damage = damage;                                                //apply damage value
 
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
@@ -240,12 +242,21 @@ public class PlayerController : MonoBehaviour
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }*/
 
+    private void Blink(){
+        Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
+        gameObject.transform.position += destination;
+    }
+
     private void die() {
         dead = true;
         //Destroy(gameObject);
         Time.timeScale = 0;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
         deadText.SetActive(true);
+    }
+
+    private void ResetScene(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
