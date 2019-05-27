@@ -239,10 +239,12 @@ public class PlayerController : MonoBehaviour
         if (isSpedUp)
         {
             speed = baseSpeed + size.x * 7;
+            cam.GetComponent<Kino.Motion>().enabled = true;
         }
         else
         {
             speed = baseSpeed + size.x;
+            cam.GetComponent<Kino.Motion>().enabled = false;
         }
     }
 
