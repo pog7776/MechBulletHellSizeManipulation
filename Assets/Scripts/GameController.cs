@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     private GameObject[] enemies;
     private GameObject player;
+    private GameObject ui;
+    private PlayerController pc;
 
     private float playerSize;
     private float radius;
@@ -15,17 +18,27 @@ public class GameController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        ui = GameObject.FindGameObjectWithTag("UI");
+        
+        pc = player.GetComponent<PlayerController>();
 
-        playerSize = player.GetComponent<PlayerController>().size.x;    //get player size
+        playerSize = pc.size.x;    //get player size
         radius = playerSize;                                            //get player size for radius size
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerSize = player.GetComponent<PlayerController>().size.x;    //get player size
+        playerSize = pc.size.x;    //get player size
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         updateEnemyVision();
+
+        if(pc.dead){
+            GameObject.Find("DeadText").SetActive(true);
+        }
+        else{
+            GameObject.Find("DeadText").SetActive(false);
+        }
     }
 
     private void updateEnemyVision() {

@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Kino;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
 
     private GameObject player;
+
+    [Header("Movement Properties")]
     private Camera cam;
     private AnalogGlitch glitch;
+    private Datamosh artifact;
 
     [Header("Movement Properties")]
     [SerializeField] private float speed;           //speed of player movement
@@ -31,8 +35,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combat Properties")]
     [SerializeField] private float hp = 100;
     public GameObject healthBar;
-    [SerializeField] private bool dead = false;
-    public GameObject deadText;
+    [SerializeField] public bool dead = false;
     private float fireTimer;
     private Vector3 shootDirection;
 
@@ -62,6 +65,8 @@ public class PlayerController : MonoBehaviour
         player = GameObject.Find("Player");
         cam = Camera.main;
         glitch = cam.GetComponent<AnalogGlitch>();
+        artifact = cam.GetComponent<Datamosh>();
+
         Debug.Log("Camera found: " + cam + cam.name);
         baseSpeed = speed;
         fuel = maxFuel;                 //Fuel Amount
@@ -81,10 +86,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         size = player.transform.localScale;
-        PrimaryFire();
-        Movement();
-        Size();
-        Rotation();
+        if(!dead){
+            PrimaryFire();
+            Movement();
+            Size();
+            Rotation();
+            Blink();
+
+            //Shield Mechanic
+            //ShieldPower();
+
+            //Speedup Mechanic
+            SpeedPower();
+            SpedUp();
+        }
 
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
@@ -92,10 +107,9 @@ public class PlayerController : MonoBehaviour
             ResetScene();
         }
 
-        if(Input.GetButtonDown("Fire2")){
-            Blink();
+        if(Input.GetButtonDown("Cancel")){
+            Pause();
         }
-
 
         //Shotgun Mechanic
         /*
@@ -134,12 +148,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //Shield Mechanic
-        ShieldPower();
+    }
 
-        //Speedup Mechanic
-        SpeedPower();
-        SpedUp();
+    private void Pause()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     private void PrimaryFire(){
@@ -313,21 +326,31 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Blink(){
-        Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
-        StartCoroutine(GlitchScreen(0.1f, 0.7f));
-        gameObject.transform.position += destination;
+        if(Input.GetButtonDown("Fire2")){
+            Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
+            StartCoroutine(GlitchScreen(0.1f, 0.7f));
+            gameObject.transform.position += destination;
+        }
     }
 
     private void die() {
         dead = true;
         //Destroy(gameObject);
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        deadText.SetActive(true);
+        StartCoroutine(Dead(0.5f));
     }
 
     private void ResetScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private IEnumerator Dead(float waitTime){     //when the player blinks
+        //artifact.Glitch();
+        yield return new WaitForSeconds(0);
+        Time.timeScale = 0;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
     }
 
     private IEnumerator GlitchScreen(float waitTime, float amount){     //when the player blinks

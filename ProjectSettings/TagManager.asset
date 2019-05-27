@@ -9,6 +9,7 @@ TagManager:
   - PlayerProjectile
   - EnemyVision
   - ArenaWalls
+  - UI
   layers:
   - Default
   - TransparentFX
