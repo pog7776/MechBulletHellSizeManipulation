@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Kino;
 
 public class PlayerController : MonoBehaviour
 {
@@ -309,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
     private void Blink(){
         Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
+        StartCoroutine(GlitchScreen(0.1f, 0.7f));
         gameObject.transform.position += destination;
     }
 
@@ -322,6 +324,12 @@ public class PlayerController : MonoBehaviour
 
     private void ResetScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private IEnumerator GlitchScreen(float waitTime, float amount){
+        cam.GetComponent<AnalogGlitch>().scanLineJitter = amount;   //set screen glitch
+        yield return new WaitForSeconds(waitTime);
+        cam.GetComponent<AnalogGlitch>().scanLineJitter = 0f;   //reset screen glitch
     }
 
 

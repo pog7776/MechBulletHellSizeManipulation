@@ -127,18 +127,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
+  maxFuel: 0
   fuel: 40
   scaleSpeed: 0.1
   minimumSize: 0
+  maximumSize: 0
   size: {x: 0, y: 0, z: 0}
   timeScale: 0
+  hp: 100
+  healthBar: {fileID: 0}
+  dead: 0
+  deadText: {fileID: 0}
   projectilePrefab: {fileID: 4829990695092999787, guid: 05228b7d38c3aeb468743261e4d21a82,
     type: 3}
   projectileSpeed: 20
   fireRate: 0.1
-  hp: 100
-  healthBar: {fileID: 0}
-  dead: 0
+  shotgunPrefab: {fileID: 0}
+  rocketPrefab: {fileID: 0}
+  maxRocketAmmo: 0
+  rocketAmmo: 0
+  rocketReload: 0
+  rocketSpeed: 0
+  shieldPrefab: {fileID: 0}
+  shieldDuration: 0
 --- !u!61 &4148627803484204746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -197,6 +208,7 @@ GameObject:
   - component: {fileID: 4148627804256480557}
   - component: {fileID: 4148627804256480722}
   - component: {fileID: 4148627804256480720}
+  - component: {fileID: 4509067085910098465}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -268,3 +280,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4148627804256480721}
   m_Enabled: 1
+--- !u!114 &4509067085910098465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4148627804256480721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870b9a8f0f82f4f56800cc427bcd1025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scanLineJitter: 0
+  _verticalJump: 0
+  _horizontalShake: 0
+  _colorDrift: 0
+  _shader: {fileID: 4800000, guid: da33272284ea24f208f36998880990be, type: 3}
