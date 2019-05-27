@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private GameObject player;
     private Camera cam;
+    private AnalogGlitch glitch;
 
     [Header("Movement Properties")]
     [SerializeField] private float speed;           //speed of player movement
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         player = GameObject.Find("Player");
         cam = Camera.main;
+        glitch = cam.GetComponent<AnalogGlitch>();
         Debug.Log("Camera found: " + cam + cam.name);
         baseSpeed = speed;
         fuel = maxFuel;                 //Fuel Amount
@@ -328,10 +330,20 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private IEnumerator GlitchScreen(float waitTime, float amount){
-        cam.GetComponent<AnalogGlitch>().scanLineJitter = amount;   //set screen glitch
+    private IEnumerator GlitchScreen(float waitTime, float amount){     //when the player blinks
+        glitch.scanLineJitter = amount;   //set screen glitch
         yield return new WaitForSeconds(waitTime);
-        cam.GetComponent<AnalogGlitch>().scanLineJitter = 0f;   //reset screen glitch
+        glitch.scanLineJitter = 0f;   //reset screen glitch
+    }
+
+    private IEnumerator PlayerHit(float waitTime){      //if the player is hit
+        glitch.scanLineJitter = 0.3f;   //set screen glitch
+        glitch.horizontalShake = 0.3f;
+        glitch.colorDrift = 0.3f;
+        yield return new WaitForSeconds(waitTime);
+        glitch.scanLineJitter = 0f;   //reset screen glitch
+        glitch.horizontalShake = 0f;
+        glitch.colorDrift = 0f;
     }
 
 
@@ -339,6 +351,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Projectile")) {    //collide with projectile
             if (hp > 0) {
                 hp--;
+                StartCoroutine(PlayerHit(0.1f));
             }
             else {
                 die();
