@@ -90,7 +90,8 @@ public class PlayerController : MonoBehaviour
             PrimaryFire();
             Movement();
             Size();
-            Rotation();
+            //Rotation();
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, Rotation()));
             Blink();
 
             //Shield Mechanic
@@ -272,15 +273,16 @@ public class PlayerController : MonoBehaviour
         return shootDirection;
     }
 
-    private void Rotation() {
+    private float Rotation() {
 		float angle = Mathf.Atan2(FindMouse().y, FindMouse().x) * Mathf.Rad2Deg;        //rotating the player
         angle-=90;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        return angle;
+        //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private void Shoot(Vector3 target) {
-        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
-        projectile.transform.localScale = size;
+        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn projectile angled towards mouse
+        projectile.transform.localScale = new Vector3(size.x - 0.35f, size.y, size.z);
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
 
         float damage = projectile.GetComponent<PlayerProjectile>().damage;                                          //get damage of projectile
