@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 scaleVector;                        //modifier of scale
 
     [Header("Combat Properties")]
-    [SerializeField] private float hp = 100;
+    [SerializeField] private float maxHp = 100;
+    [SerializeField] private float hp;
     public GameObject healthBar;
 
     [SerializeField] private bool dead = false;
@@ -69,6 +70,9 @@ public class PlayerController : MonoBehaviour
         glitch = cam.GetComponent<AnalogGlitch>();
         artifact = cam.GetComponent<Datamosh>();
 
+        hp = maxHp;
+        healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
+        
         Debug.Log("Camera found: " + cam + cam.name);
         baseSpeed = speed;
         fuel = maxFuel;                 //Fuel Amount
@@ -384,7 +388,7 @@ public class PlayerController : MonoBehaviour
             else {
                 die();
             }
-            healthBar.transform.localScale = new Vector2(hp/200, healthBar.transform.localScale.y);
+            healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
             //Debug.Log("Hit" + hp);
         }
     }

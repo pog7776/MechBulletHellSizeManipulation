@@ -77,6 +77,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Player")) {    //find and set the player
             Debug.Log("Enemy Found Player" + collision);
             player = collision.gameObject;
+            gameObject.GetComponent<Enemy_Movement>().player = player;
         }
     }
 
@@ -84,6 +85,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Player")) {    //stop shooting when player is far enough away
             Debug.Log("Enemy Lost Player" + collision);
             player = null;
+            gameObject.GetComponent<Enemy_Movement>().player = player;
         }
     }
 
