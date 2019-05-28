@@ -8939,6 +8939,11 @@ PrefabInstance:
       propertyPath: deadText
       value: 
       objectReference: {fileID: 801866553}
+    - target: {fileID: 5772612374485909441, guid: 0f79950333fd99d4580b88879a5869d0,
+        type: 3}
+      propertyPath: maxHp
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5694735220412347036, guid: 0f79950333fd99d4580b88879a5869d0,
         type: 3}
       propertyPath: m_IsActive
