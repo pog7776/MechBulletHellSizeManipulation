@@ -35,7 +35,9 @@ public class PlayerController : MonoBehaviour
     [Header("Combat Properties")]
     [SerializeField] private float hp = 100;
     public GameObject healthBar;
-    [SerializeField] public bool dead = false;
+
+    [SerializeField] private bool dead = false;
+    [SerializeField] private GameObject deadText;
     private float fireTimer;
     private Vector3 shootDirection;
 
@@ -338,9 +340,10 @@ public class PlayerController : MonoBehaviour
     private void die() {
         dead = true;
         //Destroy(gameObject);
-        Time.timeScale = 1;
+        deadText.SetActive(true);
+        Time.timeScale = 0;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        StartCoroutine(Dead(0.5f));
+        //StartCoroutine(Dead(0.5f));
     }
 
     private void ResetScene(){

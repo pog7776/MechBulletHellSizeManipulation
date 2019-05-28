@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -32,13 +33,6 @@ public class GameController : MonoBehaviour
         playerSize = pc.size.x;    //get player size
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         updateEnemyVision();
-
-        if(pc.dead){
-            GameObject.Find("DeadText").SetActive(true);
-        }
-        else{
-            GameObject.Find("DeadText").SetActive(false);
-        }
     }
 
     private void updateEnemyVision() {
