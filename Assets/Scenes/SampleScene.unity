@@ -1155,7 +1155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &202398411
 Transform:
   m_ObjectHideFlags: 0
@@ -3002,11 +3002,11 @@ GameObject:
   - component: {fileID: 801866555}
   m_Layer: 5
   m_Name: DeadText
-  m_TagString: Untagged
+  m_TagString: DeadText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &801866554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3123,11 +3123,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -8934,6 +8934,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5772612374485909441, guid: 0f79950333fd99d4580b88879a5869d0,
+        type: 3}
+      propertyPath: deadText
+      value: 
+      objectReference: {fileID: 801866553}
     - target: {fileID: 5694735220412347036, guid: 0f79950333fd99d4580b88879a5869d0,
         type: 3}
       propertyPath: m_IsActive
@@ -9093,5 +9098,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7614308454554997230, guid: f14c95d218a41814185ec2ff3c16e314,
+        type: 3}
+      propertyPath: deadText
+      value: 
+      objectReference: {fileID: 801866553}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f14c95d218a41814185ec2ff3c16e314, type: 3}
