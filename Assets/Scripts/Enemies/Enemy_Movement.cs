@@ -14,11 +14,12 @@ private float turnTime;
 
 private Vector3 thrustDirection;
 
-public GameObject player;
+[HideInInspector] public GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = null;
         rb = GetComponent<Rigidbody2D>();
         turn = Random.Range(-10, 10);
     }

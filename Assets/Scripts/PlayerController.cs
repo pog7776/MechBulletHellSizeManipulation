@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 scaleVector;                        //modifier of scale
 
     [Header("Combat Properties")]
+    [SerializeField] private bool god = false;
     [SerializeField] private float maxHp = 100;
     [SerializeField] private float hp;
     public GameObject healthBar;
@@ -288,7 +289,7 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot(Vector3 target) {
         GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn projectile angled towards mouse
-        projectile.transform.localScale = new Vector3(size.x - 0.35f, size.y, size.z);
+        projectile.transform.localScale = new Vector3(size.x - 0.35f, size.x, size.z);
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
 
         float damage = projectile.GetComponent<PlayerProjectile>().damage;                                          //get damage of projectile
@@ -363,9 +364,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private IEnumerator GlitchScreen(float waitTime, float amount){     //when the player blinks
-        glitch.scanLineJitter = amount;   //set screen glitch
+        //glitch.scanLineJitter = amount;   //set screen glitch
+        glitch.colorDrift = amount;         //set colour crazy
         yield return new WaitForSeconds(waitTime);
-        glitch.scanLineJitter = 0f;   //reset screen glitch
+        //glitch.scanLineJitter = 0f;   //reset screen glitch
+        glitch.colorDrift = 0f;       //reset colour crazy
     }
 
     private IEnumerator PlayerHit(float waitTime){      //if the player is hit
@@ -380,7 +383,7 @@ public class PlayerController : MonoBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag.Equals("Projectile")) {    //collide with projectile
+        if (collision.gameObject.tag.Equals("Projectile") && !god) {    //collide with projectile
             if (hp > 0) {
                 hp--;
                 StartCoroutine(PlayerHit(0.1f));
