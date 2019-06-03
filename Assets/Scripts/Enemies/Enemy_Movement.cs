@@ -46,7 +46,7 @@ public GameObject player;
 
     private void EnemyMove(Vector3 target){
         rb.velocity = new Vector2(thrustDirection.x, thrustDirection.y).normalized * movementSpeed/8;
-        Debug.Log(gameObject + "move towards player");
+        //Debug.Log(gameObject + "move towards player");
 
         //rb.AddRelativeForce(transform.up*movementSpeed);
     }

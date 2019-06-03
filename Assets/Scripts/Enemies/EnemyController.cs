@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     public TextMeshPro fireText;
     public float projectileVelocity;
     public GameObject visionObject;
+    public GameObject gameControllerObj;
+    private ScoreController scoreController;
 
     [SerializeField] public float hp = 20;
     private float previousHp;
@@ -19,6 +21,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool dead = false;
     [SerializeField] private float projectileSpeed = 10;
     [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private int value;     //point value for killing enemy
     private Vector3 shootDirection;
 
     private float fireTimer;
@@ -32,6 +35,7 @@ public class EnemyController : MonoBehaviour
     {
         fireTimer = 0;
         vision = visionObject.GetComponent<CircleCollider2D>();
+        scoreController = gameControllerObj.GetComponent<ScoreController>();
         previousHp = hp;
     }
 
@@ -42,8 +46,9 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(HitColour());
         }
 
-        if(hp <= 0) {
-            die();
+        if(hp <= 0)
+        {
+            Die();
         }
 
         vision.radius = visionRadius*1.5f;
@@ -68,14 +73,16 @@ public class EnemyController : MonoBehaviour
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
     }
 
-    private void die() {
+    private void Die() {
         dead = true;
+        scoreController.GetComponent<ScoreController>().AddScore(value);
         Destroy(gameObject);
+        Debug.Log("Enemy Died");
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag.Equals("Player")) {    //find and set the player
-            Debug.Log("Enemy Found Player" + collision);
+            //Debug.Log("Enemy Found Player" + collision);
             player = collision.gameObject;
             gameObject.GetComponent<Enemy_Movement>().player = player;
         }
