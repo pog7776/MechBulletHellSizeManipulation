@@ -10,9 +10,10 @@ public class EnemyController : MonoBehaviour
     public TextMeshPro fireText;
     public float projectileVelocity;
     public GameObject visionObject;
-    public GameObject gameControllerObj;
+    private GameObject gameControllerObj;
     private ScoreController scoreController;
 
+    [SerializeField] private GameObject enemySprite;
     [SerializeField] public float hp = 20;
     private float previousHp;
     [SerializeField] private float hitTime = 0.2f;
@@ -35,6 +36,7 @@ public class EnemyController : MonoBehaviour
     {
         fireTimer = 0;
         vision = visionObject.GetComponent<CircleCollider2D>();
+        gameControllerObj = GameObject.Find("GameController");
         scoreController = gameControllerObj.GetComponent<ScoreController>();
         previousHp = hp;
     }
@@ -42,6 +44,8 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        enemySprite.transform.localPosition = new Vector3(0,0,0);
+
         if(hp < previousHp){
             StartCoroutine(HitColour());
         }

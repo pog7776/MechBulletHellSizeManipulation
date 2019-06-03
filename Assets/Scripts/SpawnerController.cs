@@ -10,11 +10,12 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 1;
     private GameObject[] enemies;
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject vorplex;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb = vorplex.GetComponent<Rigidbody2D>();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
@@ -22,7 +23,7 @@ public class SpawnerController : MonoBehaviour
     void Update()
     {
         //rb.AddTorque(10);
-        gameObject.transform.Rotate(new Vector3(0, 0, rotate-rotationSpeed));
+        vorplex.transform.Rotate(new Vector3(0, 0, rotate-rotationSpeed));
 
         if(checkSpawn()){
             SpawnEnemy(enemyPrefab);

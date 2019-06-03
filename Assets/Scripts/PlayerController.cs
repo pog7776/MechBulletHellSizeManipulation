@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int rocketAmmo;        //How many rockets the player currently has
     [SerializeField] private float rocketReloading;    //How long between reload
     [SerializeField] private float rocketReloadTime;    //Reload time
-    [SerializeField] private float rocketSpeed;     //How fast the rocket is
+    [SerializeField] private float rocketSpeed = 7;     //How fast the rocket is
 
     [Header("Shield")]
     public GameObject shieldPrefab;                     //Art Asset for the Shield
@@ -302,7 +302,7 @@ public class PlayerController : MonoBehaviour
         damage = damage * size.x;                                                                                   //set damage value
         projectile.GetComponent<PlayerProjectile>().damage = damage;                                                //apply damage value
 
-        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+        projectileRb.velocity = new Vector2(target.x, target.y).normalized * projectileSpeed;       //fire towards target
     }
 
     //Shotgun Weapon
@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour
             shotgunProjectile[i] = Instantiate(shotgunPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
             shotgunProjectile[i].transform.localScale = size/2;
             Rigidbody2D shotgunProjectileRb = shotgunProjectile[i].GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
-            shotgunProjectileRb.velocity = new Vector2(shootDirection.x + i, shootDirection.y).normalized * projectileSpeed;       //fire towards target
+            shotgunProjectileRb.velocity = new Vector2(target.x + i, target.y).normalized * projectileSpeed;       //fire towards target
         }
     }
 
@@ -324,7 +324,7 @@ public class PlayerController : MonoBehaviour
         GameObject projectile = Instantiate(rocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target
+        projectileRb.velocity = new Vector2(target.x, target.y).normalized * rocketSpeed;       //fire towards target
     }
 
     //Explosive Rocket
@@ -333,16 +333,16 @@ public class PlayerController : MonoBehaviour
         GameObject projectile = Instantiate(explosiveRocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target
+        projectileRb.velocity = new Vector2(target.x, target.y).normalized * rocketSpeed;       //fire towards target
     }
 
     //Homing Rocket
     private void HomingRocket(Vector3 target)
     {
-        GameObject projectile = Instantiate(homingRocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
-        projectile.transform.localScale = size;
+        GameObject projectile = Instantiate(homingRocketPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn projectile
+        projectile.transform.localScale = size*3;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target
+        projectileRb.velocity = new Vector2(target.x, target.y).normalized * rocketSpeed;       //fire towards target
     }
 
     private void ShieldPower()
@@ -379,7 +379,7 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private IEnumerator Dead(float waitTime){     //when the player blinks
+    private IEnumerator Dead(float waitTime){       //when the player dies
         //artifact.Glitch();
         yield return new WaitForSeconds(0);
         Time.timeScale = 0;
