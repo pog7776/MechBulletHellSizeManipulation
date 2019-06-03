@@ -690,6 +690,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemies
       objectReference: {fileID: 0}
+    - target: {fileID: 3879303082479946572, guid: 3cc6db3190ed2f246934bbb572013610,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3879303082919558827, guid: 3cc6db3190ed2f246934bbb572013610,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1292,12 +1297,12 @@ PrefabInstance:
     - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.88
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.31
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
         type: 3}
@@ -1343,6 +1348,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815536038497610715, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815536038497610715, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f517f05a62c78814b99311f4b01f097c, type: 3}

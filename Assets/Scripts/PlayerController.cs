@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxHp = 100;
     [SerializeField] private float hp;
     public GameObject healthBar;
+    public bool roundEnd;
 
     [SerializeField] private bool dead = false;
     [SerializeField] private GameObject deadText;
@@ -111,6 +112,11 @@ public class PlayerController : MonoBehaviour
             //Speedup Mechanic
             SpeedPower();
             SpedUp();
+        }
+
+        if(roundEnd){       //what to do between rounds
+            hp = maxHp;
+            roundEnd = false;
         }
 
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
