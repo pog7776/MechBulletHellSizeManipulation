@@ -91,6 +91,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd5b925608c32e419dc244de459f0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!108 &5171659298303246776
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772612374485909440}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 0, g: 0.694036, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &5694735220485453098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,6 +309,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4148627803484204745, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Mech
+      objectReference: {fileID: 0}
     - target: {fileID: 4148627803484204747, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -330,11 +373,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4148627803484204745, guid: 377bfb797ee85b54dbdffa8968dfd39e,
-        type: 3}
-      propertyPath: m_Name
-      value: Player Mech
       objectReference: {fileID: 0}
     - target: {fileID: 4148627804256480722, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
@@ -499,6 +537,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 377bfb797ee85b54dbdffa8968dfd39e, type: 3}
+--- !u!1 &5772612374485909440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4148627803484204745, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7606178858865103113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5772612374485909442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4148627803484204747, guid: 377bfb797ee85b54dbdffa8968dfd39e,
