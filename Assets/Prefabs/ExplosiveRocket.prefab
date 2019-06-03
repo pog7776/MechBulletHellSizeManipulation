@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6539781496665895250}
-  - component: {fileID: 9031776851066035144}
   - component: {fileID: 5024446286700309975}
   - component: {fileID: 7593634169387272661}
+  - component: {fileID: 1136227376957714233}
   m_Layer: 9
   m_Name: ExplosiveRocket
   m_TagString: Projectile
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9031776851066035144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3516895178728793693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a1872ba7943e984eb68e87224177d16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shardPrefab: {fileID: 7947901850450845071, guid: 8c14d608ab852764bb001c4459a66206,
-    type: 3}
 --- !u!50 &5024446286700309975
 Rigidbody2D:
   serializedVersion: 4
@@ -85,6 +71,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &1136227376957714233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516895178728793693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5f1bfc8874dc44fbb586e7f159611c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shardPrefab: {fileID: 7947901850450845071, guid: 8c14d608ab852764bb001c4459a66206,
+    type: 3}
 --- !u!1 &5130457712579710542
 GameObject:
   m_ObjectHideFlags: 0

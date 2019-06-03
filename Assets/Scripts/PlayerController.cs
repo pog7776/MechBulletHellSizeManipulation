@@ -51,10 +51,14 @@ public class PlayerController : MonoBehaviour
     public GameObject shotgunPrefab;                     //Art Asset for the shotgun bullets
 
     [Header("Rocket")]
-    public GameObject rocketPrefab;                     //Art Asset for the Rocket
+    public GameObject rocketPrefab;                     //Normal Rocket Asset
+    public GameObject explosiveRocketPrefab;                     //Explosive Rocket Asset
+    public GameObject homingRocketPrefab;                     //Homing Rocket Asset
+    private Transform target;                           //Target for homing missle
     [SerializeField] private int maxRocketAmmo;        //How many rockets the player is allowed
     [SerializeField] private int rocketAmmo;        //How many rockets the player currently has
-    [SerializeField] private float rocketReload;    //How long between reload
+    [SerializeField] private float rocketReloading;    //How long between reload
+    [SerializeField] private float rocketReloadTime;    //Reload time
     [SerializeField] private float rocketSpeed;     //How fast the rocket is
 
     [Header("Shield")]
@@ -138,19 +142,21 @@ public class PlayerController : MonoBehaviour
         {
             if(rocketAmmo > 0)
             {
-                RocketShoot(FindMouse());
-                rocketAmmo-= 1;
+                //NormalRocket(FindMouse());
+                //ExplosiveRocket(FindMouse());
+                HomingRocket(FindMouse());
+                rocketAmmo -= 1;
             }
         }
         //Reloading rocket
         if (rocketAmmo < maxRocketAmmo)
         {
-            rocketReload += Time.deltaTime;
+            rocketReloading += Time.deltaTime;
 
-            if (rocketReload > 10)
+            if (rocketReloading > rocketReloadTime)
             {
                 rocketAmmo += 1;
-                rocketReload = 0;
+                rocketReloading = 0;
                 Debug.Log("Reloaded rocket");
             }
         }
@@ -312,9 +318,27 @@ public class PlayerController : MonoBehaviour
     }
 
     //Normal Rocket Launcher
-    private void RocketShoot(Vector3 target)
+    private void NormalRocket(Vector3 target)
     {
         GameObject projectile = Instantiate(rocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        projectile.transform.localScale = size;
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target
+    }
+
+    //Explosive Rocket
+    private void ExplosiveRocket(Vector3 target)
+    {
+        GameObject projectile = Instantiate(explosiveRocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        projectile.transform.localScale = size;
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target
+    }
+
+    //Homing Rocket
+    private void HomingRocket(Vector3 target)
+    {
+        GameObject projectile = Instantiate(homingRocketPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         projectileRb.velocity = new Vector2(shootDirection.x, shootDirection.y).normalized * rocketSpeed;       //fire towards target

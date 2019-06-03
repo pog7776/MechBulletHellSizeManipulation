@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class ExplosiveRocket : MonoBehaviour
 {
     public GameObject shardPrefab;
 
-    private float lifeTime = 4;
-    private float damage = 1;
+    [SerializeField] private float lifeTime = 4;
+    [SerializeField] private float damage = 5;
 
     void Update()
     {
