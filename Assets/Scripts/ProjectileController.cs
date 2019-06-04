@@ -6,6 +6,8 @@ public class ProjectileController : MonoBehaviour
 {
     private float lifeTime = 10;
     private Rigidbody2D rb;
+    public GameObject owner;
+    public float speed;
 
     //[SerializeField] private float damage = 20;
 

@@ -63,10 +63,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rocketReloadTime;    //Reload time
     [SerializeField] private float rocketSpeed = 7;     //How fast the rocket is
 
+    [Header("Blink")]
+    [SerializeField] private bool blinkChosen;
+
     [Header("Shield")]
-    public GameObject shieldPrefab;                     //Art Asset for the Shield
+    [SerializeField] private GameObject shieldObject;    //Art Asset for the Shield
     [SerializeField] private float shieldDuration;
+    [SerializeField] private float shieldCharge;
+    [SerializeField] private float shieldDrainRate = 0.5f;
+    [SerializeField] private float shieldChargeRate = 0.5f;
     private bool shieldUp;                              //Check if shield is active
+    [SerializeField] private bool shieldChosen;
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +90,7 @@ public class PlayerController : MonoBehaviour
         baseSpeed = speed;
         fuel = maxFuel;                 //Fuel Amount
         rocketAmmo = maxRocketAmmo;     //Rocket amount
+        shieldCharge = shieldDuration;  //shield charge
 
         scaleVector.Set(scaleSpeed, scaleSpeed, scaleSpeed);
         size = player.transform.localScale;
@@ -104,10 +112,15 @@ public class PlayerController : MonoBehaviour
             Size();
             //Rotation();
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, Rotation()));
-            Blink();
 
-            //Shield Mechanic
-            //ShieldPower();
+            if(blinkChosen){
+                Blink();
+            }
+
+            if(shieldChosen){
+                //Shield Mechanic
+                ShieldPower();
+            }
 
             //Speedup Mechanic
             SpeedPower();
@@ -353,14 +366,35 @@ public class PlayerController : MonoBehaviour
 
     private void ShieldPower()
     {
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
-            if (!shieldUp)
+            if (!shieldUp && shieldCharge > 0)
             {
                 shieldUp = true;
-                GameObject shield = Instantiate(shieldPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
-
+                //GameObject shield = Instantiate(shieldPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+                shieldObject.SetActive(true);
             }
+        }
+        if(Input.GetButtonUp("Fire2")){
+            if (shieldUp)
+            {
+                shieldUp = false;
+                //GameObject shield = Instantiate(shieldPrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+                shieldObject.SetActive(false);
+            }
+        }
+
+        if(!shieldUp && shieldCharge < shieldDuration){
+            shieldCharge += shieldChargeRate;
+        }
+
+        if(shieldUp && shieldCharge > 0){
+            shieldCharge -= shieldDrainRate;
+        }
+        
+        if(shieldCharge <= 0){
+            shieldUp = false;
+            shieldObject.SetActive(false);
         }
     }
 

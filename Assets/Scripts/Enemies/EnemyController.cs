@@ -71,6 +71,9 @@ public class EnemyController : MonoBehaviour
 
     private void Shoot(GameObject target) {
         GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
+        ProjectileController controller = projectile.GetComponent<ProjectileController>();
+        controller.owner = gameObject;
+        controller.speed = projectileSpeed;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
         shootDirection = target.transform.position - projectile.transform.position;
         //projectileRb.AddForce((target.transform.position - projectile.transform.position) * projectileSpeed);       //fire towards target
