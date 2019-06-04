@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Blink")]
     [SerializeField] private bool blinkChosen;
+    [SerializeField] private GameObject hologramPrefab;
+    [SerializeField] private float blinkDelay = 0.2f;
+    [SerializeField] private GameObject trail;
 
     [Header("Shield")]
     [SerializeField] private GameObject shieldObject;    //Art Asset for the Shield
@@ -402,7 +405,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Fire2")){
             Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
             StartCoroutine(GlitchScreen(0.1f, 0.7f));
-            gameObject.transform.position += destination;
+            StartCoroutine(BlinkDelay(blinkDelay, destination));
         }
     }
 
@@ -443,6 +446,19 @@ public class PlayerController : MonoBehaviour
         glitch.scanLineJitter = 0f;   //reset screen glitch
         glitch.horizontalShake = 0f;
         glitch.colorDrift = 0f;
+    }
+
+    private IEnumerator BlinkDelay(float waitTime, Vector3 destination){      //PlayerBlink Power
+        GameObject hologram = Instantiate(hologramPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn Hologram
+        yield return new WaitForSeconds(0.01f);
+        hologram.transform.position = gameObject.transform.position + destination;
+        hologram.transform.localScale = new Vector3(size.x, size.y, size.z);
+        yield return new WaitForSeconds(waitTime);
+        //trail.SetActive(true);
+        gameObject.transform.position += destination;
+        yield return new WaitForSeconds(1f);
+        //trail.SetActive(false);
+        Destroy(hologram);
     }
 
 
