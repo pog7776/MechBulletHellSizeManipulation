@@ -450,13 +450,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator BlinkDelay(float waitTime, Vector3 destination){      //PlayerBlink Power
         GameObject hologram = Instantiate(hologramPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn Hologram
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSecondsRealtime(0.01f);
         hologram.transform.position = gameObject.transform.position + destination;
         hologram.transform.localScale = new Vector3(size.x, size.y, size.z);
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         //trail.SetActive(true);
         gameObject.transform.position += destination;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         //trail.SetActive(false);
         Destroy(hologram);
     }
