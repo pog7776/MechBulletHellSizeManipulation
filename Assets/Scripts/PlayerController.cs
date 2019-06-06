@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxHp = 100;
     [SerializeField] private float hp;
     public GameObject healthBar;
+    [SerializeField] private GameObject HPMask;
+    private float HPMaskRotation = 80;
+    [SerializeField] private GameObject AbilityMask;
+    private float AbilityMaskRotation = -80;
     public bool roundEnd;
 
     [SerializeField] private bool dead = false;
@@ -88,6 +92,9 @@ public class PlayerController : MonoBehaviour
 
         hp = maxHp;
         healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
+
+        HPMask.transform.localRotation = new Quaternion(0, 0, HPMaskRotation, 0);        //set Resource bars to full
+        AbilityMask.transform.localRotation = new Quaternion(0, 0, AbilityMaskRotation, 0);
         
         Debug.Log("Camera found: " + cam + cam.name);
         baseSpeed = speed;
@@ -130,10 +137,21 @@ public class PlayerController : MonoBehaviour
             SpedUp();
         }
 
-        if(roundEnd){       //what to do between rounds
+        //  HP/Ability Bars----------------------
+
+        HPMaskRotation = ((hp/maxHp)*100);  //set rotation angle
+            HPMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, HPMaskRotation));   //rotate mask
+
+        AbilityMaskRotation = ((shieldCharge/shieldDuration)*100);  //set rotation angle
+            AbilityMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -AbilityMaskRotation-5));   //rotate mask
+        //---------------------------------------
+
+        //what to do between rounds -------------
+        if(roundEnd){       
             hp = maxHp;
             roundEnd = false;
         }
+        // --------------------------------------
 
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
@@ -471,7 +489,7 @@ public class PlayerController : MonoBehaviour
             else {
                 die();
             }
-            healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
+            //healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
             //Debug.Log("Hit" + hp);
         }
     }
