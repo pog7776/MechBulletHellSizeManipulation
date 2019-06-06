@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxHp = 100;
     [SerializeField] private float hp;
     public GameObject healthBar;
+    [SerializeField] private GameObject HPMask;
+    private float HPMaskRotation = 80;
+    [SerializeField] private GameObject AbilityMask;
+    private float AbilityMaskRotation = -80;
     public bool roundEnd;
 
     [SerializeField] private bool dead = false;
@@ -65,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Blink")]
     [SerializeField] private bool blinkChosen;
+    [SerializeField] private GameObject hologramPrefab;
+    [SerializeField] private float blinkDelay = 0.2f;
+    [SerializeField] private GameObject trail;
 
     [Header("Shield")]
     [SerializeField] private GameObject shieldObject;    //Art Asset for the Shield
@@ -85,6 +92,9 @@ public class PlayerController : MonoBehaviour
 
         hp = maxHp;
         healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
+
+        HPMask.transform.localRotation = new Quaternion(0, 0, HPMaskRotation, 0);        //set Resource bars to full
+        AbilityMask.transform.localRotation = new Quaternion(0, 0, AbilityMaskRotation, 0);
         
         Debug.Log("Camera found: " + cam + cam.name);
         baseSpeed = speed;
@@ -127,10 +137,21 @@ public class PlayerController : MonoBehaviour
             SpedUp();
         }
 
-        if(roundEnd){       //what to do between rounds
+        //  HP/Ability Bars----------------------
+
+        HPMaskRotation = ((hp/maxHp)*100);  //set rotation angle
+            HPMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, HPMaskRotation));   //rotate mask
+
+        AbilityMaskRotation = ((shieldCharge/shieldDuration)*100);  //set rotation angle
+            AbilityMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -AbilityMaskRotation-5));   //rotate mask
+        //---------------------------------------
+
+        //what to do between rounds -------------
+        if(roundEnd){       
             hp = maxHp;
             roundEnd = false;
         }
+        // --------------------------------------
 
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
@@ -402,7 +423,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Fire2")){
             Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
             StartCoroutine(GlitchScreen(0.1f, 0.7f));
-            gameObject.transform.position += destination;
+            StartCoroutine(BlinkDelay(blinkDelay, destination));
         }
     }
 
@@ -445,6 +466,19 @@ public class PlayerController : MonoBehaviour
         glitch.colorDrift = 0f;
     }
 
+    private IEnumerator BlinkDelay(float waitTime, Vector3 destination){      //PlayerBlink Power
+        GameObject hologram = Instantiate(hologramPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn Hologram
+        yield return new WaitForSecondsRealtime(0.01f);
+        hologram.transform.position = gameObject.transform.position + destination;
+        hologram.transform.localScale = new Vector3(size.x, size.y, size.z);
+        yield return new WaitForSecondsRealtime(waitTime);
+        //trail.SetActive(true);
+        gameObject.transform.position += destination;
+        yield return new WaitForSecondsRealtime(1f);
+        //trail.SetActive(false);
+        Destroy(hologram);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag.Equals("Projectile") && !god) {    //collide with projectile
@@ -455,7 +489,7 @@ public class PlayerController : MonoBehaviour
             else {
                 die();
             }
-            healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
+            //healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
             //Debug.Log("Hit" + hp);
         }
     }
