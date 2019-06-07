@@ -67,6 +67,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rocketReloadTime;    //Reload time
     [SerializeField] private float rocketSpeed = 7;     //How fast the rocket is
 
+    [Header("Abilities")]
+    private GameObject abilitySelection;
+
     [Header("Blink")]
     [SerializeField] private bool blinkChosen;
     [SerializeField] private GameObject hologramPrefab;
@@ -92,6 +95,12 @@ public class PlayerController : MonoBehaviour
 
         hp = maxHp;
         healthBar.transform.localScale = new Vector2((hp/maxHp), healthBar.transform.localScale.y);
+
+        //which ability was slected
+        abilitySelection = GameObject.FindGameObjectWithTag("AbilitySelection");
+        shieldChosen = abilitySelection.GetComponent<AbilitySelection>().shieldSelected;
+        blinkChosen = abilitySelection.GetComponent<AbilitySelection>().blinkSelected;
+        //Destroy(abilitySelection);
 
         HPMask.transform.localRotation = new Quaternion(0, 0, HPMaskRotation, 0);        //set Resource bars to full
         AbilityMask.transform.localRotation = new Quaternion(0, 0, AbilityMaskRotation, 0);

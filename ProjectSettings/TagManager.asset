@@ -11,6 +11,7 @@ TagManager:
   - ArenaWalls
   - UI
   - DeadText
+  - AbilitySelection
   layers:
   - Default
   - TransparentFX
