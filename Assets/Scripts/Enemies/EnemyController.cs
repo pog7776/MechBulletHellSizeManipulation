@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float projectileSpeed = 10;
     [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private int value;     //point value for killing enemy
+    [SerializeField] public int threatValue;
     private Vector3 shootDirection;
 
     private float fireTimer;
@@ -84,7 +85,7 @@ public class EnemyController : MonoBehaviour
         dead = true;
         scoreController.GetComponent<ScoreController>().AddScore(value);
         Destroy(gameObject);
-        Debug.Log("Enemy Died");
+        Debug.Log("Enemy Died" + gameObject.name);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
