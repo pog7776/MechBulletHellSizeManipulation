@@ -58,12 +58,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Rocket")]
     public GameObject rocketPrefab;                     //Normal Rocket Asset
-    public GameObject explosiveRocketPrefab;                     //Explosive Rocket Asset
-    public GameObject homingRocketPrefab;                     //Homing Rocket Asset
+    public GameObject explosiveRocketPrefab;            //Explosive Rocket Asset
+    public GameObject homingRocketPrefab;               //Homing Rocket Asset
     private Transform target;                           //Target for homing missle
-    [SerializeField] private int maxRocketAmmo;        //How many rockets the player is allowed
-    [SerializeField] private int rocketAmmo;        //How many rockets the player currently has
-    [SerializeField] private float rocketReloading;    //How long between reload
+    [SerializeField] private int maxRocketAmmo;         //How many rockets the player is allowed
+    [SerializeField] private int rocketAmmo;            //How many rockets the player currently has
+    [SerializeField] private float rocketReloading;     //How long between reload
     [SerializeField] private float rocketReloadTime;    //Reload time
     [SerializeField] private float rocketSpeed = 7;     //How fast the rocket is
 
@@ -75,6 +75,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject hologramPrefab;
     [SerializeField] private float blinkDelay = 0.2f;
     [SerializeField] private GameObject trail;
+    [SerializeField] private int blinkChargeMax = 10;
+    [SerializeField] private int blinkCharges;
+    private float blinkTimer = 2;
+    private float blinkTime = 0;
+    private bool isRecharging;
 
     [Header("Shield")]
     [SerializeField] private GameObject shieldObject;    //Art Asset for the Shield
@@ -110,6 +115,8 @@ public class PlayerController : MonoBehaviour
         fuel = maxFuel;                 //Fuel Amount
         rocketAmmo = maxRocketAmmo;     //Rocket amount
         shieldCharge = shieldDuration;  //shield charge
+        blinkCharges = blinkChargeMax;  //set blink charges
+        //blinkTime = blinkTimer;
 
         scaleVector.Set(scaleSpeed, scaleSpeed, scaleSpeed);
         size = player.transform.localScale;
@@ -429,11 +436,23 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Blink(){
-        if(Input.GetButtonDown("Fire2")){
+        if(Input.GetButtonDown("Fire2") && blinkCharges > 0){
             Vector3 destination = new Vector3(FindMouse().x, FindMouse().y, 0);
             StartCoroutine(GlitchScreen(0.1f, 0.7f));
             StartCoroutine(BlinkDelay(blinkDelay, destination));
+            blinkCharges--;
+            blinkTime = blinkTimer;
         }
+
+        //blink timer
+        if(blinkTime > 0){
+            blinkTime -= Time.fixedDeltaTime;
+        }
+        else if(!isRecharging){
+            isRecharging = true;
+            StartCoroutine(BlinkRecharge());
+        }
+
     }
 
     private void die() {
@@ -477,15 +496,27 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator BlinkDelay(float waitTime, Vector3 destination){      //PlayerBlink Power
         GameObject hologram = Instantiate(hologramPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn Hologram
-        yield return new WaitForSecondsRealtime(0.01f);
+        hologram.transform.localScale = new Vector3(size.x/2, size.y/2, size.z/2);
+        Vector3 previousLocation = gameObject.transform.position;
+        yield return new WaitForSecondsRealtime(0.001f);
         hologram.transform.position = gameObject.transform.position + destination;
-        hologram.transform.localScale = new Vector3(size.x, size.y, size.z);
         yield return new WaitForSecondsRealtime(waitTime);
         //trail.SetActive(true);
-        gameObject.transform.position += destination;
+        gameObject.transform.position = previousLocation + destination;
         yield return new WaitForSecondsRealtime(1f);
         //trail.SetActive(false);
         Destroy(hologram);
+    }
+
+    private IEnumerator BlinkRecharge(){      //PlayerBlink Recharge
+        if(blinkCharges < blinkChargeMax){
+            blinkCharges++;
+            yield return new WaitForSecondsRealtime(0.5f);
+            StartCoroutine(BlinkRecharge());
+        }
+        else{
+            isRecharging = false;
+        }
     }
 
 
