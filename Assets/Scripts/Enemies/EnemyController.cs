@@ -94,11 +94,6 @@ public class EnemyController : MonoBehaviour
             player = collision.gameObject;
             gameObject.GetComponent<Enemy_Movement>().player = player;
         }
-
-        if(collision.gameObject.tag.Equals("Arena Walls"))
-        {
-
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class RoundController : MonoBehaviour
 {
@@ -13,7 +15,9 @@ public class RoundController : MonoBehaviour
     private PlayerController pc;
 
     [SerializeField] private float rotationSpeed = 1;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject enemyPrefab1;
+    [SerializeField] private GameObject enemyPrefab2;
+    [SerializeField] private GameObject enemyPrefab3;
     [SerializeField] private GameObject bossPrefab;
     [SerializeField] private GameObject vorplex;
     [SerializeField] private float roundDelay = 5;
@@ -21,10 +25,11 @@ public class RoundController : MonoBehaviour
 
     [SerializeField] private Text roundNumber;
 
-    private float threatLevel;
-
-    private int waveDifficulty = 5;
+    [SerializeField]private int waveDifficulty = 5;
+    private int spawnLeft = 0;
     private int waveNo = 0;
+    [SerializeField]private bool bossRound;
+    [SerializeField]private int bossRoundCount = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +47,28 @@ public class RoundController : MonoBehaviour
         //rb.AddTorque(10);
         vorplex.transform.Rotate(new Vector3(0, 0, rotate-rotationSpeed));
 
+        if(waveDifficulty == 20 * bossRoundCount){
+            bossRound = true;
+        }
+        else{
+            bossRound = false;
+        }
+
         if(checkSpawn()){
             pc.roundEnd = true;
-            
+            spawnLeft = waveDifficulty;
             delay -= Time.fixedDeltaTime;
             if(delay <= 0){
-                EndRound(enemyPrefab);
+                if(!bossRound){
+                    NewRound();
+                }
+                else if(bossRound){
+                    Boss(1);
+                    NormalEnemy(1);
+                    BlueEnemy(1);
+                    YellowEnemy(1);
+                    bossRoundCount++;
+                }                
             }
         }
         roundNumber.text = waveNo.ToString();
@@ -63,20 +84,53 @@ public class RoundController : MonoBehaviour
         }
     }
 
-    private void EndRound(GameObject enemyType){
-        int spawnCount = waveDifficulty;
-        while(spawnCount > 0){
-            //Debug.Log("Spawn " + spawnCount);
-            GameObject enemy = Instantiate(enemyType, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
-            spawnCount--;
-        }
-        foreach (GameObject enemy in enemies)
-        {
-            threatLevel += enemy.GetComponent<EnemyController>().threatValue;
+    private void NewRound(){
+        while(spawnLeft > 0){
+            if(spawnLeft > 0){NormalEnemy(1);}
+            if(spawnLeft > 0){BlueEnemy(1);}
+            if(spawnLeft > 0){YellowEnemy(1);}
         }
 
-        //pc.roundEnd = true;
         waveDifficulty += 5;
         waveNo++;
+    }
+
+    private void NormalEnemy(int quantity){
+        int spawnCount = quantity;
+        while(spawnCount > 0){
+            GameObject enemy = Instantiate(enemyPrefab1, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
+            //spawnCount--;
+            spawnCount--;
+            spawnLeft-= enemy.GetComponent<EnemyController>().threatValue;
+        }
+    }
+
+    private void BlueEnemy(int quantity){
+        int spawnCount = quantity;
+        while(spawnCount > 0){
+            GameObject enemy = Instantiate(enemyPrefab2, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
+            //spawnCount--;
+            spawnCount--;
+            spawnLeft-= enemy.GetComponent<EnemyController>().threatValue;
+        }
+    }
+
+    private void YellowEnemy(int quantity){
+        int spawnCount = quantity;
+        while(spawnCount > 0){
+            GameObject enemy = Instantiate(enemyPrefab3, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
+            //spawnCount--;
+            spawnCount--;
+            spawnLeft-= enemy.GetComponent<EnemyController>().threatValue;
+        }
+    }
+
+    private void Boss(int quantity){
+        int spawnCount = quantity;
+        while(spawnCount > 0){
+            GameObject enemy = Instantiate(bossPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
+            spawnCount--;
+            spawnLeft-= enemy.GetComponent<EnemyController>().threatValue;
+        }
     }
 }

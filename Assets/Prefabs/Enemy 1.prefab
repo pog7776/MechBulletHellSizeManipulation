@@ -145,6 +145,7 @@ MonoBehaviour:
   projectileSpeed: 30
   fireRate: 0.2
   value: 300
+  threatValue: 1
   visionRadius: 0
 --- !u!114 &5815776525435465102
 MonoBehaviour:
@@ -158,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c520cb371c4ff4e9391a888cc23d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 20
   player: {fileID: 0}
 --- !u!50 &3742776897292345090
 Rigidbody2D:

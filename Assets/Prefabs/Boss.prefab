@@ -1141,15 +1141,15 @@ MonoBehaviour:
   projectileVelocity: 0
   visionObject: {fileID: 4699347419739044340}
   enemySprite: {fileID: 2087969572365918562}
-  hp: 30
+  hp: 50
   hitTime: 0.2
-  normal: {r: 1, g: 1, b: 1, a: 0}
-  hit: {r: 1, g: 0, b: 0, a: 0}
+  normal: {r: 1, g: 1, b: 1, a: 1}
+  hit: {r: 1, g: 0, b: 0, a: 1}
   dead: 0
-  projectileSpeed: 10
-  fireRate: 0.3
+  projectileSpeed: 15
+  fireRate: 0.2
   value: 1000
-  threatValue: 10
+  threatValue: 5
   visionRadius: 0
 --- !u!114 &7912168852268462317
 MonoBehaviour:
@@ -1163,6 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c520cb371c4ff4e9391a888cc23d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 20
   player: {fileID: 0}
 --- !u!114 &2087969572365918571
 MonoBehaviour:
@@ -4722,6 +4723,7 @@ GameObject:
   - component: {fileID: 7672395927422788318}
   - component: {fileID: 160669850754706624}
   - component: {fileID: 8465288576888038973}
+  - component: {fileID: 2548373824458450098}
   m_Layer: 0
   m_Name: Segment (7)
   m_TagString: Untagged
@@ -4850,6 +4852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c520cb371c4ff4e9391a888cc23d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 20
   player: {fileID: 0}
 --- !u!114 &8465288576888038973
 MonoBehaviour:
@@ -4864,6 +4867,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!58 &2548373824458450098
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7996609349204121931}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.000000011175871, y: 0.00000047683716}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1 &8082850833410492844
 GameObject:
   m_ObjectHideFlags: 0
@@ -4878,6 +4897,7 @@ GameObject:
   - component: {fileID: 6682140140778038820}
   - component: {fileID: 1683437222628201595}
   - component: {fileID: 5022514915285318833}
+  - component: {fileID: 2651377887176785019}
   m_Layer: 0
   m_Name: Segment (7)
   m_TagString: Untagged
@@ -5006,6 +5026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c520cb371c4ff4e9391a888cc23d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 20
   player: {fileID: 0}
 --- !u!114 &5022514915285318833
 MonoBehaviour:
@@ -5020,6 +5041,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!58 &2651377887176785019
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8082850833410492844}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000013783574, y: 0.0000014305115}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1 &8265475781510915801
 GameObject:
   m_ObjectHideFlags: 0
@@ -5221,6 +5258,7 @@ GameObject:
   - component: {fileID: 8981521045017326275}
   - component: {fileID: 5298850323863021556}
   - component: {fileID: 7109675511674975442}
+  - component: {fileID: 8260221200226350477}
   m_Layer: 0
   m_Name: Segment (7)
   m_TagString: Untagged
@@ -5349,6 +5387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c520cb371c4ff4e9391a888cc23d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 20
   player: {fileID: 0}
 --- !u!114 &7109675511674975442
 MonoBehaviour:
@@ -5363,6 +5402,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!58 &8260221200226350477
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378646574756483312}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000011920929, y: 0.0000014305115}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1 &8393782959600866669
 GameObject:
   m_ObjectHideFlags: 0
@@ -5525,6 +5580,7 @@ GameObject:
   - component: {fileID: 3917283427642960122}
   - component: {fileID: 2760424350412809466}
   - component: {fileID: 3311955096603021141}
+  - component: {fileID: 4231206296377600330}
   m_Layer: 0
   m_Name: Segment (7)
   m_TagString: Untagged
@@ -5653,6 +5709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c520cb371c4ff4e9391a888cc23d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 20
   player: {fileID: 0}
 --- !u!114 &3311955096603021141
 MonoBehaviour:
@@ -5667,6 +5724,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!58 &4231206296377600330
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8738366889318667410}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.000000011175871, y: 0.00000047683716}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1 &8873145511412834401
 GameObject:
   m_ObjectHideFlags: 0

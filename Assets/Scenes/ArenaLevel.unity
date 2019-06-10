@@ -1251,7 +1251,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1716870735 stripped
 GameObject:
@@ -2439,7 +2439,7 @@ PrefabInstance:
     - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8883482379006666398, guid: f517f05a62c78814b99311f4b01f097c,
         type: 3}
@@ -2482,6 +2482,30 @@ PrefabInstance:
       propertyPath: roundNumber
       value: 
       objectReference: {fileID: 512406777}
+    - target: {fileID: 912016648550979887, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: enemyPrefab2
+      value: 
+      objectReference: {fileID: 3742776897292345118, guid: 8cc44228991d9e44ea05c83143a22740,
+        type: 3}
+    - target: {fileID: 912016648550979887, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: enemyPrefab1
+      value: 
+      objectReference: {fileID: 3742776897292345118, guid: 615231206e10ffd42861d6a048ac6172,
+        type: 3}
+    - target: {fileID: 912016648550979887, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: bossPrefab
+      value: 
+      objectReference: {fileID: 2087969572365918562, guid: 2a2e9018ece343a4daf3b70336807210,
+        type: 3}
+    - target: {fileID: 912016648550979887, guid: f517f05a62c78814b99311f4b01f097c,
+        type: 3}
+      propertyPath: enemyPrefab3
+      value: 
+      objectReference: {fileID: 3742776897292345118, guid: e5deac08ad20ffe4ba9e42b7e87ebc6e,
+        type: 3}
     - target: {fileID: 4815536038497610715, guid: f517f05a62c78814b99311f4b01f097c,
         type: 3}
       propertyPath: m_LocalScale.y
