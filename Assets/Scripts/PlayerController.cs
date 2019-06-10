@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         size = player.transform.localScale;
-        if(!dead){
+        if(!dead && !PauseMenu.isPaused){
             PrimaryFire();
             Movement();
             Size();
@@ -178,14 +178,6 @@ public class PlayerController : MonoBehaviour
 
         cam.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));    //keep camera upright
 
-        if(Input.GetButtonDown("Reset")){
-            ResetScene();
-        }
-
-        if(Input.GetButtonDown("Cancel")){
-            Pause();
-        }
-
         //Rocket Mechanic
         if (Input.GetButtonDown("Rocket"))
         {
@@ -210,11 +202,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-    }
-
-    private void Pause()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     private void PrimaryFire(){
