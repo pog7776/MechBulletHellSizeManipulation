@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoundController : MonoBehaviour
 {
@@ -15,10 +16,15 @@ public class RoundController : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject bossPrefab;
     [SerializeField] private GameObject vorplex;
+    [SerializeField] private float roundDelay = 5;
+    private float delay;
+
+    [SerializeField] private Text roundNumber;
 
     private float threatLevel;
 
     private int waveDifficulty = 5;
+    private int waveNo = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +33,7 @@ public class RoundController : MonoBehaviour
         pc = player.GetComponent<PlayerController>();
         rb = vorplex.GetComponent<Rigidbody2D>();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        delay = roundDelay;
     }
 
     // Update is called once per frame
@@ -36,8 +43,14 @@ public class RoundController : MonoBehaviour
         vorplex.transform.Rotate(new Vector3(0, 0, rotate-rotationSpeed));
 
         if(checkSpawn()){
-            EndRound(enemyPrefab);
+            pc.roundEnd = true;
+            
+            delay -= Time.fixedDeltaTime;
+            if(delay <= 0){
+                EndRound(enemyPrefab);
+            }
         }
+        roundNumber.text = waveNo.ToString();
     }
 
     private bool checkSpawn(){
@@ -53,7 +66,7 @@ public class RoundController : MonoBehaviour
     private void EndRound(GameObject enemyType){
         int spawnCount = waveDifficulty;
         while(spawnCount > 0){
-            Debug.Log("Spawn " + spawnCount);
+            //Debug.Log("Spawn " + spawnCount);
             GameObject enemy = Instantiate(enemyType, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
             spawnCount--;
         }
@@ -62,7 +75,8 @@ public class RoundController : MonoBehaviour
             threatLevel += enemy.GetComponent<EnemyController>().threatValue;
         }
 
+        //pc.roundEnd = true;
         waveDifficulty += 5;
-        pc.roundEnd = true;
+        waveNo++;
     }
 }

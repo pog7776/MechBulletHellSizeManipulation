@@ -847,6 +847,27 @@ PrefabInstance:
       propertyPath: rocketSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: shieldObject
+      value: 
+      objectReference: {fileID: 3055280020788762403, guid: b3e8b1bbe39e9d6458fc5c7b578aeb50,
+        type: 3}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: HPMask
+      value: 
+      objectReference: {fileID: 1443869435477633403}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: AbilityMask
+      value: 
+      objectReference: {fileID: 2963360151363186817}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: hpLight
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4148627803484204741, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
       propertyPath: m_AngularDrag
