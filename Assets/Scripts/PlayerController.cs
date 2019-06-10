@@ -92,6 +92,11 @@ public class PlayerController : MonoBehaviour
     private bool shieldUp;                              //Check if shield is active
     [SerializeField] private bool shieldChosen;
 
+    [Header("Sounds")]
+    public AudioClip shootSound;
+    public AudioClip rocketSound;
+    public AudioClip lowHpSound;
+
 
     private Vector3 thrustDirection;
 
@@ -138,18 +143,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         size = player.transform.localScale;
-        if(!dead && !PauseMenu.isPaused){
+        if (!dead && !PauseMenu.isPaused)
+        {
             PrimaryFire();
             Movement();
             Size();
             //Rotation();
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, Rotation()));
 
-            if(blinkChosen){
+            if (blinkChosen)
+            {
                 Blink();
             }
 
-            if(shieldChosen){
+            if (shieldChosen)
+            {
                 //Shield Mechanic
                 ShieldPower();
             }
@@ -160,28 +168,32 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 pos = gameObject.transform.position;
-            if(pos.x > 40 || pos.x < -40 || pos.y > 40 || pos.y < -40){
-                PlayerCentre(FindCentre());
-            }
+        if (pos.x > 40 || pos.x < -40 || pos.y > 40 || pos.y < -40)
+        {
+            PlayerCentre(FindCentre());
+        }
 
         //  HP/Ability Bars----------------------
 
-        HPMaskRotation = ((hp/maxHp)*100);  //set rotation angle
-            HPMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, HPMaskRotation));   //rotate mask
+        HPMaskRotation = ((hp / maxHp) * 100);  //set rotation angle
+        HPMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, HPMaskRotation));   //rotate mask
 
-        if(shieldChosen){
-            AbilityMaskRotation = ((shieldCharge/shieldDuration)*100);  //set rotation angle
+        if (shieldChosen)
+        {
+            AbilityMaskRotation = ((shieldCharge / shieldDuration) * 100);  //set rotation angle
         }
-        else if(blinkChosen){
-            AbilityMaskRotation = (((float)blinkCharges/(float)blinkChargeMax)*100);  //set rotation angle
+        else if (blinkChosen)
+        {
+            AbilityMaskRotation = (((float)blinkCharges / (float)blinkChargeMax) * 100);  //set rotation angle
         }
-        
-            AbilityMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -AbilityMaskRotation-5));   //rotate mask
-            Debug.Log(AbilityMaskRotation);
+
+        AbilityMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -AbilityMaskRotation - 5));   //rotate mask
+        Debug.Log(AbilityMaskRotation);
         //---------------------------------------
 
         //what to do between rounds -------------
-        if(roundEnd){       
+        if (roundEnd)
+        {
             hp = maxHp;
             roundEnd = false;
         }
@@ -192,11 +204,11 @@ public class PlayerController : MonoBehaviour
         //Rocket Mechanic
         if (Input.GetButtonDown("Rocket"))
         {
-            if(rocketAmmo > 0)
+            if (rocketAmmo > 0)
             {
-                NormalRocket(FindMouse());
+                //NormalRocket(FindMouse());
                 //ExplosiveRocket(FindMouse());
-                //HomingRocket(FindMouse());
+                HomingRocket(FindMouse());
                 rocketAmmo -= 1;
             }
         }
@@ -211,6 +223,11 @@ public class PlayerController : MonoBehaviour
                 rocketReloading = 0;
                 Debug.Log("Reloaded rocket");
             }
+        }
+
+        if(hp == 20)
+        {
+            AudioController.instance.PlaySingle(lowHpSound);
         }
 
     }
@@ -315,6 +332,7 @@ public class PlayerController : MonoBehaviour
         {
             speed = baseSpeed + size.x * 7;
             cam.GetComponent<Kino.Motion>().enabled = true;
+            
         }
         else
         {
@@ -349,19 +367,7 @@ public class PlayerController : MonoBehaviour
         projectile.GetComponent<PlayerProjectile>().damage = damage;                                                //apply damage value
 
         projectileRb.velocity = new Vector2(target.x, target.y).normalized * projectileSpeed;       //fire towards target
-    }
-
-    //Shotgun Weapon
-    private void ShotgunShoot(Vector3 target)
-    {
-        GameObject[] shotgunProjectile = new GameObject[3];
-        for (int i = 0; i < shotgunProjectile.Length; i++)
-        {
-            shotgunProjectile[i] = Instantiate(shotgunPrefab, gameObject.transform.position, Quaternion.identity);  //spawn projectile
-            shotgunProjectile[i].transform.localScale = size/2;
-            Rigidbody2D shotgunProjectileRb = shotgunProjectile[i].GetComponent<Rigidbody2D>();                                          //find projectile rigidbody
-            shotgunProjectileRb.velocity = new Vector2(target.x + i, target.y).normalized * projectileSpeed;       //fire towards target
-        }
+        AudioController.instance.PlaySingle(shootSound);
     }
 
     //Normal Rocket Launcher
@@ -371,6 +377,7 @@ public class PlayerController : MonoBehaviour
         projectile.transform.localScale = size;
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         projectileRb.velocity = new Vector2(target.x, target.y).normalized * rocketSpeed;       //fire towards target
+        AudioController.instance.PlaySingle(rocketSound);
     }
 
     //Explosive Rocket

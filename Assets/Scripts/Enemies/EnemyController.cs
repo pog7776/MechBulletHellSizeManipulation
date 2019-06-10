@@ -25,6 +25,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int value;     //point value for killing enemy
     [SerializeField] public int threatValue;
     private Vector3 shootDirection;
+    [SerializeField] private bool isGreen;
+    [SerializeField] private bool isBlue;
+    [SerializeField] private bool isYellow;
 
     private float fireTimer;
     private GameObject player;
