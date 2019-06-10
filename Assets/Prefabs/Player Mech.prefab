@@ -868,6 +868,11 @@ PrefabInstance:
       propertyPath: hpLight
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4148627803484204744, guid: 377bfb797ee85b54dbdffa8968dfd39e,
+        type: 3}
+      propertyPath: scaleSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4148627803484204741, guid: 377bfb797ee85b54dbdffa8968dfd39e,
         type: 3}
       propertyPath: m_AngularDrag
