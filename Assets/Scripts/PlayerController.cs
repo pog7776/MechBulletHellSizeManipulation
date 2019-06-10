@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     private bool isSpedUp;                          //Check if player is sped up
 
     [Header("Scale Properties")]
-    [SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
+    [SerializeField] private float scaleSpeed = 1f;   //speed player changes size
+    //[SerializeField] private float scaleSpeed = 0.1f;   //speed player changes size
     [SerializeField] private bool minimumSize = false;  //is player the minimum size
     [SerializeField] private bool maximumSize = false;  //is player the minimum size
     [SerializeField] public Vector3 size;               //current size

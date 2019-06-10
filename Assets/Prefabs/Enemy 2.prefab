@@ -145,7 +145,7 @@ MonoBehaviour:
   projectileSpeed: 20
   fireRate: 0.3
   value: 450
-  threatValue: 0
+  threatValue: 1
   visionRadius: 0
 --- !u!114 &5815776525435465102
 MonoBehaviour:

@@ -11,6 +11,7 @@ private Rigidbody2D rb;
 private float torque = 1;
 private float turnTimer = 5;
 private float turnTime;
+private Collider2D vison;
 
 private Vector3 thrustDirection;
 
@@ -22,6 +23,7 @@ private Vector3 thrustDirection;
         player = null;
         rb = GetComponent<Rigidbody2D>();
         turn = Random.Range(-10, 10);
+        vison = gameObject.GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -46,7 +48,7 @@ private Vector3 thrustDirection;
     }
 
     private void EnemyMove(Vector3 target){
-        rb.velocity = new Vector2(thrustDirection.x, thrustDirection.y).normalized * movementSpeed/8;
+        rb.velocity = new Vector2(thrustDirection.x, thrustDirection.y).normalized * movementSpeed;
         //Debug.Log(gameObject + "move towards player");
 
         //rb.AddRelativeForce(transform.up*movementSpeed);
@@ -66,5 +68,12 @@ private Vector3 thrustDirection;
         thrustDirection = thrustDirection - transform.position;
         
         return thrustDirection;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag.Equals("Player")) {    //find and set the player
+            //Debug.Log("Enemy Found Player" + collision);
+            player = other.gameObject;
+        }
     }
 }

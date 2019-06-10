@@ -1,0 +1,12 @@
+{
+    "scoreList": [
+        {
+            "name": "John",
+            "value": 500.0
+        },
+        {
+            "name": "Jim",
+            "value": 600.0
+        }
+    ]
+}
