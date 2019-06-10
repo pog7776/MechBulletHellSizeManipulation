@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject AbilityMask;
     private float AbilityMaskRotation = -80;
     public bool roundEnd;
+    [SerializeField] private float blueDamage;
 
     [SerializeField] private bool dead = false;
     [SerializeField] private GameObject deadText;
@@ -534,6 +535,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Projectile") && !god) {    //collide with projectile
             if (hp > 0) {
                 hp--;
+                StartCoroutine(PlayerHit(0.1f));
+            }
+            else if(collision.gameObject.tag.Equals("Projectile2") && !god)
+            {
+                hp -= blueDamage;
                 StartCoroutine(PlayerHit(0.1f));
             }
             else {

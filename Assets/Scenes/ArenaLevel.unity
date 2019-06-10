@@ -2643,6 +2643,11 @@ PrefabInstance:
       propertyPath: projectileSpeed
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5772612374485909441, guid: 0f79950333fd99d4580b88879a5869d0,
+        type: 3}
+      propertyPath: blueDamage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5772612373671689435, guid: 0f79950333fd99d4580b88879a5869d0,
         type: 3}
       propertyPath: m_BackGroundColor.r
@@ -2778,17 +2783,17 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 8993054050147787551, guid: 0f79950333fd99d4580b88879a5869d0,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 2060756192574076550, guid: 0f79950333fd99d4580b88879a5869d0,
         type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5508231141585395298, guid: 0f79950333fd99d4580b88879a5869d0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993054050147787551, guid: 0f79950333fd99d4580b88879a5869d0,
         type: 3}
       propertyPath: m_RootOrder
       value: 9

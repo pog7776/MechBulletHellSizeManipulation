@@ -6,7 +6,7 @@ public class Enemy_Movement : MonoBehaviour
 {
 
 private float turn;
-private float movementSpeed = 20;
+[SerializeField] private float movementSpeed = 20;
 private Rigidbody2D rb;
 private float torque = 1;
 private float turnTimer = 5;
