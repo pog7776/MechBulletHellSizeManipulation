@@ -28,6 +28,12 @@ private Vector3 thrustDirection;
     void Update()
     {
         if(player == null){
+
+            Vector3 pos = gameObject.transform.position;
+            if(pos.x > 40 || pos.x < -40 || pos.y > 40 || pos.y < -40){
+                EnemyMove(FindCentre());
+            }
+            
             turn = Random.Range(-10, 10);
             //Debug.Log(turn);
 
@@ -46,7 +52,7 @@ private Vector3 thrustDirection;
     }
 
     private void EnemyMove(Vector3 target){
-        rb.velocity = new Vector2(thrustDirection.x, thrustDirection.y).normalized * movementSpeed/8;
+        rb.velocity = new Vector2(target.x, target.y).normalized * movementSpeed/8;
         //Debug.Log(gameObject + "move towards player");
 
         //rb.AddRelativeForce(transform.up*movementSpeed);
@@ -70,6 +76,15 @@ private Vector3 thrustDirection;
             thrustDirection = thrustDirection + transform.position;
         }
         
+        return thrustDirection;
+    }
+
+    private Vector3 FindCentre() {
+        //...setting thurst direction
+        thrustDirection = new Vector3(0,0,0);
+        thrustDirection.z = 0.0f;
+        thrustDirection = thrustDirection - transform.position;
+    
         return thrustDirection;
     }
 }
