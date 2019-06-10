@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815536037073489261}
   - component: {fileID: 4815536037073489260}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815536037205200158}
   - component: {fileID: 4815536037205200157}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Red (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815536037902933417}
   - component: {fileID: 4815536037902933416}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Blu (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 4815536038497610715}
   - component: {fileID: 4815536038497610724}
   - component: {fileID: 4815536038497610714}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Vorplex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4815536038826927622}
   - component: {fileID: 4815536038826927621}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Blu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8883482379006666398}
   - component: {fileID: 912016648550979887}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

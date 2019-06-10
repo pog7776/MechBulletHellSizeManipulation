@@ -51,7 +51,7 @@ public class RoundController : MonoBehaviour
         int spawnCount = waveDifficulty;
         while(spawnCount > 0){
             Debug.Log("Spawn " + spawnCount);
-            GameObject enemy = Instantiate(enemyType, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));  //spawn enemy
+            GameObject enemy = Instantiate(enemyType, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 180))));  //spawn enemy
             spawnCount--;
         }
         waveDifficulty += 5;
