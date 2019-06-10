@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7153556745651516495}
   - component: {fileID: 2150344683915936519}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1.4999999, y: 1.4999999, z: 1.5}
   m_Children: []
   m_Father: {fileID: 8749365931214835787}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &2150344683915936519
 TrailRenderer:
@@ -118,8 +118,8 @@ TrailRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
+    numCapVertices: 20
+    alignment: 1
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
@@ -155,7 +155,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 8749365931214835787}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1296730103974913144
 Light:
@@ -223,8 +223,8 @@ Transform:
   m_LocalPosition: {x: -0.039, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 2082814625944302622}
   - {fileID: 7153556745651516495}
+  - {fileID: 2082814625944302622}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3}
