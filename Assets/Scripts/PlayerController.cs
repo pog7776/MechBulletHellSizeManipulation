@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
     private AnalogGlitch glitch;
     private Datamosh artifact;
+    private Rigidbody2D rb;
 
     [Header("Movement Properties")]
     [SerializeField] private float speed;           //speed of player movement
@@ -90,10 +91,14 @@ public class PlayerController : MonoBehaviour
     private bool shieldUp;                              //Check if shield is active
     [SerializeField] private bool shieldChosen;
 
+
+    private Vector3 thrustDirection;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        rb = gameObject.GetComponent<Rigidbody2D>();
         cam = Camera.main;
         glitch = cam.GetComponent<AnalogGlitch>();
         artifact = cam.GetComponent<Datamosh>();
@@ -152,6 +157,11 @@ public class PlayerController : MonoBehaviour
             SpeedPower();
             SpedUp();
         }
+
+        Vector3 pos = gameObject.transform.position;
+            if(pos.x > 40 || pos.x < -40 || pos.y > 40 || pos.y < -40){
+                PlayerCentre(FindCentre());
+            }
 
         //  HP/Ability Bars----------------------
 
@@ -445,6 +455,22 @@ public class PlayerController : MonoBehaviour
 
     private void ResetScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private Vector3 FindCentre() {
+        //...setting thurst direction
+        thrustDirection = new Vector3(0,0,0);
+        thrustDirection.z = 0.0f;
+        thrustDirection = thrustDirection - transform.position;
+    
+        return thrustDirection;
+    }
+
+    private void PlayerCentre(Vector3 target){
+        rb.velocity = new Vector2(target.x, target.y).normalized * speed;
+        //Debug.Log(gameObject + "move towards player");
+
+        //rb.AddRelativeForce(transform.up*movementSpeed);
     }
 
     private IEnumerator Dead(float waitTime){       //when the player dies
