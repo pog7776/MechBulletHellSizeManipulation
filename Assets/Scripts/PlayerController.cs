@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     [Header("Blink")]
     [SerializeField] private bool blinkChosen;
     [SerializeField] private GameObject hologramPrefab;
-    [SerializeField] private float blinkDelay = 0.2f;
+    [SerializeField] private float blinkDelay = 0;//0.2f;
     [SerializeField] private GameObject trail;
     [SerializeField] private int blinkChargeMax = 10;
     [SerializeField] private int blinkCharges;
@@ -158,8 +158,15 @@ public class PlayerController : MonoBehaviour
         HPMaskRotation = ((hp/maxHp)*100);  //set rotation angle
             HPMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, HPMaskRotation));   //rotate mask
 
-        AbilityMaskRotation = ((shieldCharge/shieldDuration)*100);  //set rotation angle
+        if(shieldChosen){
+            AbilityMaskRotation = ((shieldCharge/shieldDuration)*100);  //set rotation angle
+        }
+        else if(blinkChosen){
+            AbilityMaskRotation = (((float)blinkCharges/(float)blinkChargeMax)*100);  //set rotation angle
+        }
+        
             AbilityMask.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, -AbilityMaskRotation-5));   //rotate mask
+            Debug.Log(AbilityMaskRotation);
         //---------------------------------------
 
         //what to do between rounds -------------
@@ -496,20 +503,25 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator BlinkDelay(float waitTime, Vector3 destination){      //PlayerBlink Power
         GameObject hologram = Instantiate(hologramPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Rotation())));  //spawn Hologram
+        //TrailRenderer trail = hologram.transform.GetChild(0).gameObject.GetComponent<TrailRenderer>();
+        //trail.widthCurve = new Vector2(size.x, size.x);
         hologram.transform.localScale = new Vector3(size.x/2, size.y/2, size.z/2);
         Vector3 previousLocation = gameObject.transform.position;
+
         yield return new WaitForSecondsRealtime(0.001f);
         hologram.transform.position = gameObject.transform.position + destination;
+
         yield return new WaitForSecondsRealtime(waitTime);
         //trail.SetActive(true);
         gameObject.transform.position = previousLocation + destination;
+
         yield return new WaitForSecondsRealtime(1f);
         //trail.SetActive(false);
         Destroy(hologram);
     }
 
     private IEnumerator BlinkRecharge(){      //PlayerBlink Recharge
-        if(blinkCharges < blinkChargeMax){
+        if(blinkCharges < blinkChargeMax && blinkTime <= 0){
             blinkCharges++;
             yield return new WaitForSecondsRealtime(0.5f);
             StartCoroutine(BlinkRecharge());

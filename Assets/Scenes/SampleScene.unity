@@ -1678,6 +1678,11 @@ PrefabInstance:
       propertyPath: AbilityMask
       value: 
       objectReference: {fileID: 2076710385}
+    - target: {fileID: 5772612374485909441, guid: 0f79950333fd99d4580b88879a5869d0,
+        type: 3}
+      propertyPath: blinkDelay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5772612373671689435, guid: 0f79950333fd99d4580b88879a5869d0,
         type: 3}
       propertyPath: m_BackGroundColor.r
