@@ -172,29 +172,14 @@ public class PlayerController : MonoBehaviour
             Pause();
         }
 
-        //Shotgun Mechanic
-        /*
-        if (Input.GetButton("Fire1"))
-        {
-            if (fireTimer > 0)
-            {
-                fireTimer -= Time.deltaTime;
-            }
-            else
-            {
-                ShotgunShoot(FindMouse());
-                fireTimer = fireRate;
-            }
-        }*/
-
         //Rocket Mechanic
         if (Input.GetButtonDown("Rocket"))
         {
             if(rocketAmmo > 0)
             {
-                //NormalRocket(FindMouse());
+                NormalRocket(FindMouse());
                 //ExplosiveRocket(FindMouse());
-                HomingRocket(FindMouse());
+                //HomingRocket(FindMouse());
                 rocketAmmo -= 1;
             }
         }

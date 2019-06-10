@@ -24,7 +24,7 @@ TagManager:
   - Player
   - Projectile
   - Player Projectile
-  - 
+  - Environment
   - 
   - 
   - 
@@ -48,4 +48,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1823243371
+    locked: 0
+  - name: Environment
+    uniqueID: 4158350673
+    locked: 0
+  - name: Player Projectile
+    uniqueID: 305756467
+    locked: 0
+  - name: Projectile
+    uniqueID: 1353793073
     locked: 0
