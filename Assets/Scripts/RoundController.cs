@@ -13,7 +13,10 @@ public class RoundController : MonoBehaviour
 
     [SerializeField] private float rotationSpeed = 1;
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject bossPrefab;
     [SerializeField] private GameObject vorplex;
+
+    private float threatLevel;
 
     private int waveDifficulty = 5;
 
@@ -51,9 +54,14 @@ public class RoundController : MonoBehaviour
         int spawnCount = waveDifficulty;
         while(spawnCount > 0){
             Debug.Log("Spawn " + spawnCount);
-            GameObject enemy = Instantiate(enemyType, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 180))));  //spawn enemy
+            GameObject enemy = Instantiate(enemyType, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 359))));  //spawn enemy
             spawnCount--;
         }
+        foreach (GameObject enemy in enemies)
+        {
+            threatLevel += enemy.GetComponent<EnemyController>().threatValue;
+        }
+
         waveDifficulty += 5;
         pc.roundEnd = true;
     }
