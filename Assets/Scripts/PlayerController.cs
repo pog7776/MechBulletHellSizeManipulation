@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
     public bool roundEnd;
     [SerializeField] private float blueDamage;
 
-    [SerializeField] private bool dead = false;
-    [SerializeField] private GameObject deadText;
+    [SerializeField] public bool dead = false;
+    [SerializeField] private GameObject deadScreen;
     private float fireTimer;
     private Vector3 shootDirection;
 
@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip rocketSound;
     public AudioClip lowHpSound;
+    public AudioClip deathSound;
 
 
     private Vector3 thrustDirection;
@@ -456,9 +457,10 @@ public class PlayerController : MonoBehaviour
     private void die() {
         dead = true;
         //Destroy(gameObject);
-        deadText.SetActive(true);
+        deadScreen.SetActive(true);
         Time.timeScale = 0;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        AudioController.instance.Death(deathSound);
         //StartCoroutine(Dead(0.5f));
     }
 
@@ -487,7 +489,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0);
         Time.timeScale = 0;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
-
+        
     }
 
     private IEnumerator GlitchScreen(float waitTime, float amount){     //when the player blinks
