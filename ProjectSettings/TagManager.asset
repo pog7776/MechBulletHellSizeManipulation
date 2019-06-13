@@ -12,6 +12,9 @@ TagManager:
   - UI
   - DeadText
   - AbilitySelection
+  - TextInput
+  - Score
+  - EnterButton
   layers:
   - Default
   - TransparentFX
@@ -60,4 +63,10 @@ TagManager:
     locked: 0
   - name: Projectile
     uniqueID: 1353793073
+    locked: 0
+  - name: Enemy
+    uniqueID: 1200954839
+    locked: 0
+  - name: Background
+    uniqueID: 2856206339
     locked: 0
